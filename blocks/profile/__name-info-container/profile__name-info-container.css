@@ -1,0 +1,19 @@
+.profile__name-info-container {
+    align-items: baseline;
+    column-gap: 18px;
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 336px;
+    padding-left: 30px;
+    row-gap: 16px;
+    width: 100%;
+}
+
+@media screen and (max-width: 767px) {
+    .profile__name-info-container {
+      column-gap: 10px;
+      max-width: 282px;
+      padding: 26px 0 36px 0;
+      row-gap: 10px;
+    }
+  }

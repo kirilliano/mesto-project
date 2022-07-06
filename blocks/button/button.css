@@ -1,0 +1,14 @@
+.button {
+  background-color: transparent;
+  background-position: center center;
+  background-repeat: no-repeat;
+  border: 1px solid #fff;
+  margin: 0;
+  padding: 0;
+  transition: opacity 0.2s linear;
+}
+
+.button:hover {
+  opacity: 0.6;
+  cursor: pointer;
+}

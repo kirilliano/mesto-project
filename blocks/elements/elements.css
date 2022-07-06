@@ -10,6 +10,7 @@
     justify-items: center;
 }
 
+
 @media screen and (max-width: 767px) {
     .elements {
         grid-template-columns: 1fr;

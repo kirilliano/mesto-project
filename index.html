@@ -19,11 +19,11 @@
           <img class="profile__avatar" src="./images/avatar.jpg" alt="Аватар" />
           <div class="profile__name-info-container">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
-            <button class="button profile__edit-button"></button>
+            <button aria-label="редактировать профиль" class="button profile__edit-button" type="button"></button>
             <p class="profile__info">Исследователь океана</p>
           </div>
         </div>
-        <button class="button profile__add-button"></button>
+        <button aria-label="добавить фото" class="button profile__add-button" type="button"></button>
       </section>
 
       <section class="elements">
@@ -31,55 +31,57 @@
           <img class="element__image" src="./images/Karachaevsk.jpg" alt="Храм в Карачаевске на фоне горы">
           <figcaption class="element__caption">
             <h3 class="element__title">Карачаевск</h3>
-            <button class="button element__button"></button>
+            <button aria-label="нравится" class="button element__button" type="button"></button>
           </figcaption>
         </figure>
         <figure class="element">
           <img class="element__image" src="./images/Elbrus.jpg" alt="Гора Эльбрус на закате">
           <figcaption class="element__caption">
             <h3 class="element__title">Гора Эльбрус</h3>
-            <button class="button element__button"></button>
+            <button aria-label="нравится" class="button element__button" type="button"></button>
           </figcaption>
         </figure>
         <figure class="element">
           <img class="element__image" src="./images/Dombai.jpg" alt="Домбайские горы в пасмурную погоду">
           <figcaption class="element__caption">
             <h3 class="element__title">Домбай</h3>
-            <button class="button element__button"></button>
+            <button aria-label="нравится" class="button element__button" type="button"></button>
           </figcaption>
         </figure>
         <figure class="element">
           <img class="element__image" src="./images/Elbrus.jpg" alt="Гора Эльбрус на закате">
           <figcaption class="element__caption">
             <h3 class="element__title">Гора Эльбрус</h3>
-            <button class="button element__button"></button>
+            <button aria-label="нравится" class="button element__button" type="button"></button>
           </figcaption>
         </figure>
         <figure class="element">
           <img class="element__image" src="./images/Dombai.jpg" alt="Домбайские горы в пасмурную погоду">
           <figcaption class="element__caption">
             <h3 class="element__title">Домбай</h3>
-            <button class="button element__button"></button>
+            <button aria-label="нравится" class="button element__button" type="button"></button>
           </figcaption>
         </figure>
         <figure class="element">
           <img class="element__image" src="./images/Karachaevsk.jpg" alt="Храм в Карачаевске на фоне горы">
           <figcaption class="element__caption">
             <h3 class="element__title">Карачаево-Черкесия</h3>
-            <button class="button element__button"></button>
+            <button aria-label="нравится" class="button element__button" type="button"></button>
           </figcaption>
         </figure>
       </section>
-      <div class="popup">
-      <form class="popup__container">
-        <button class="button popup__close-button"></button>
+      <div class="popup popup_opened">
+      <div class="popup__container">
+      <form class="popup__form" name="UserProfile">
+        <button aria-label="закрыть" class="button popup__close-button" type="button"></button>
         <h3 class="popup__title">Редактировать профиль</h3>
         <fieldset class="popup__fieldset">
-          <input type="text" name="UserName" class="popup__input" placeholder="Имя" value="Жак-Ив Кусто">
-          <input type="text" name="UserInfo" class="popup__input" placeholder="О себе" value="Исследователь океана">
+          <input id="username-field" type="text" name="UserName" class="popup__input" placeholder="Имя" value="Жак-Ив Кусто">
+          <input id="userinfo-field" type="text" name="UserInfo" class="popup__input" placeholder="О себе" value="Исследователь океана">
         </fieldset>
-        <button class="button popup__save-button">Сохранить</button>
+        <button aria-label="сохранить" class="button popup__save-button" type="button">Сохранить</button>
       </form>
+    </div>
       </div>
     </main>
     <footer>

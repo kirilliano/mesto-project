@@ -11,5 +11,6 @@
 @media screen and (max-width: 767px) {
   .popup__fieldset {
     max-width: 238px;
+    padding-bottom: 45px;
   }
 }

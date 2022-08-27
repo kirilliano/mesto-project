@@ -28,51 +28,22 @@
       <button aria-label="добавить фото" class="button profile__add-button" type="button"></button>
     </section>
 
-    <section class="elements">
-      <figure class="element">
-        <img class="element__image" src="./images/Karachaevsk.jpg" alt="Храм в Карачаевске на фоне горы">
-        <figcaption class="element__caption">
-          <h3 class="element__title">Карачаевск</h3>
-          <button aria-label="нравится" class="button element__button" type="button"></button>
-        </figcaption>
-      </figure>
-      <figure class="element">
-        <img class="element__image" src="./images/Elbrus.jpg" alt="Гора Эльбрус на закате">
-        <figcaption class="element__caption">
-          <h3 class="element__title">Гора Эльбрус</h3>
-          <button aria-label="нравится" class="button element__button" type="button"></button>
-        </figcaption>
-      </figure>
-      <figure class="element">
-        <img class="element__image" src="./images/Dombai.jpg" alt="Домбайские горы в пасмурную погоду">
-        <figcaption class="element__caption">
-          <h3 class="element__title">Домбай</h3>
-          <button aria-label="нравится" class="button element__button" type="button"></button>
-        </figcaption>
-      </figure>
-      <figure class="element">
-        <img class="element__image" src="./images/Elbrus.jpg" alt="Гора Эльбрус на закате">
-        <figcaption class="element__caption">
-          <h3 class="element__title">Гора Эльбрус</h3>
-          <button aria-label="нравится" class="button element__button" type="button"></button>
-        </figcaption>
-      </figure>
-      <figure class="element">
-        <img class="element__image" src="./images/Dombai.jpg" alt="Домбайские горы в пасмурную погоду">
-        <figcaption class="element__caption">
-          <h3 class="element__title">Домбай</h3>
-          <button aria-label="нравится" class="button element__button" type="button"></button>
-        </figcaption>
-      </figure>
-      <figure class="element">
-        <img class="element__image" src="./images/Karachaevsk.jpg" alt="Храм в Карачаевске на фоне горы">
-        <figcaption class="element__caption">
-          <h3 class="element__title">Карачаево-Черкесия</h3>
-          <button aria-label="нравится" class="button element__button" type="button"></button>
-        </figcaption>
-      </figure>
-    </section>
-    <div class="popup">
+
+      <section class="elements">
+        <template class="element__template">
+        <figure class="element">
+          <img class="element__image" src="" alt="">
+          <figcaption class="element__caption">
+            <h3 class="element__title"></h3>
+            <button aria-label="нравится" class="button element__button" type="button"></button>
+            <button aria-label="удалить" class="button element__button-delete" type="button"></button>
+          </figcaption>
+        </figure>
+      </template>
+      </section>
+
+<!--Попап изменения профиля-->
+    <div class="popup" id="popupEditProfile">
       <div class="popup__container">
         <form class="popup__form" name="UserProfile">
           <button aria-label="закрыть" class="button popup__close-button" type="button"></button>
@@ -87,10 +58,38 @@
         </form>
       </div>
     </div>
+
+<!--Попап добавления фото-->
+    <div class="popup" id="popupAddPhoto">
+      <div class="popup__container">
+        <form class="popup__form" id="formPhotoElement" name="NewPhoto">
+          <button aria-label="закрыть" class="button popup__close-button" type="button"></button>
+          <h3 class="popup__title">Новое место</h3>
+          <fieldset class="popup__fieldset">
+            <input id="phototitle-field" type="text" name="PhotoTitle" class="popup__input" placeholder="Название" value="">
+            <input id="photolink-field" type="url" name="PhotoLink" class="popup__input" placeholder="Ссылка на картинку" value="">
+          </fieldset>
+          <button aria-label="создать" class="button popup__save-button" type="submit">Создать</button>
+        </form>
+      </div>
+    </div>
+
+<!--Попап открытия фото-->
+    <div class="popup popup__open-image">
+      <div class="popup__image-container">
+        <figure class="popup__image-elements">
+          <img class="popup__image" src="" alt="">
+          <figcaption class="popup__image-caption"></figcaption>
+        </figure>
+        <button aria-label="закрыть окно" class="button popup__close-button" type="button"></button>
+      </div>
+    </div>
+
   </main>
   <footer>
     <p class="footer">&copy; 2022 Mesto Russia</p>
   </footer>
+  <script src="./scripts/script.js"></script>
 </body>
 
 </html>

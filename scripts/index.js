@@ -1,8 +1,7 @@
 const popup = document.querySelector('.popup');
-const closeButtons = document.querySelectorAll('.popup__close-button');
-const saveButton = document.querySelector('.popup__save-button');
 
 //Закрытие попапа
+const closeButtons = document.querySelectorAll('.popup__close-button');
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
 }
@@ -73,6 +72,20 @@ const initialCards = [
   }
 ];
 
+//Открытие картинки
+const openImagePopup = document.querySelector('.popup__open-image');
+const popupImage = document.querySelector('.popup__image');
+const imageCaption = document.querySelector('.popup__image-caption');
+
+function openImage(evt) {
+  const image = evt.target;
+  popupImage.setAttribute('src', image.src);
+  popupImage.setAttribute('alt', image.alt);
+  imageCaption.textContent = image.alt;
+
+  openPopup(openImagePopup);
+}
+
 //Создание начальной галереи
 const elements = document.querySelector('.elements');
 const elementTemplate = document.querySelector('.element__template').content;
@@ -124,17 +137,3 @@ function formAddPhotoHandler (evt) {
   closePopup(addPhotoPopup);
 }
 addPhotoPopup.addEventListener('submit', formAddPhotoHandler);
-
-//Открытие картинки
-const openImagePopup = document.querySelector('.popup__open-image');
-const popupImage = document.querySelector('.popup__image');
-const imageCaption = document.querySelector('.popup__image-caption');
-
-function openImage(evt) {
-  const image = evt.target;
-  popupImage.setAttribute('src', image.src);
-  popupImage.setAttribute('alt', image.alt);
-  imageCaption.textContent = image.alt;
-
-  openPopup(openImagePopup);
-}

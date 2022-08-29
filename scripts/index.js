@@ -102,6 +102,6 @@ function formAddPhotoHandler (evt) {
   evt.preventDefault();
   elementsBlock.prepend(addCard(photoTitle.value, photoLink.value));
   closePopup(addPhotoPopup);
+  addPhotoForm.reset();
 }
 addPhotoForm.addEventListener('submit', formAddPhotoHandler);
-addPhotoForm.reset();

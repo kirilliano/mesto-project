@@ -7,17 +7,16 @@
   <meta name="description" content="Страница с понравившимися местами">
   <meta name="keywords" content="путешествия">
   <meta name="author" content="Кирилл Артемонов">
-  <link rel="stylesheet" href="./pages/index.css">
   <title>Mesto</title>
 </head>
 
 <body class="page">
   <header class="header">
-    <img class="header__logo" src="./images/logo.svg" alt="Логотип страницы">
+    <img class="header__logo" src="<%=require('./images/logo.svg')%>" alt="Логотип страницы">
   </header>
   <main>
     <section class="profile">
-      <img class="profile__avatar" src="./images/avatar.jpg" alt="Аватар">
+      <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="Аватар">
       <div class="profile__data-container">
           <div class="profile__name-info-container">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -45,16 +44,24 @@
 <!--Попап изменения профиля-->
     <div class="popup" id="popupEditProfile">
       <div class="popup__container">
-        <form class="popup__form" name="UserProfile">
+        <form class="popup__form" name="UserProfile" novalidate>
           <button aria-label="закрыть" class="button popup__close-button" type="button"></button>
           <h3 class="popup__title">Редактировать профиль</h3>
           <fieldset class="popup__fieldset">
+            <label class="popup__form-field">
             <input id="username-field" type="text" name="UserName" class="popup__input" placeholder="Имя"
-              value="Жак-Ив Кусто">
+              value="Жак-Ив Кусто" data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
+              minlength="2" maxlength="40" pattern="^[a-zA-Zа-яА-ЯёЁ\s-]+$" required>
+              <span class="popup__input-error username-field-error"></span>
+            </label>
+            <label class="popup__form-field">
             <input id="userinfo-field" type="text" name="UserInfo" class="popup__input" placeholder="О себе"
-              value="Исследователь океана">
+              value="Исследователь океана" minlength="2" maxlength="200" pattern="^[a-zA-Zа-яА-ЯёЁ\s-]+$"
+              data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы" required>
+              <span class="popup__input-error userinfo-field-error"></span>
+            </label>
           </fieldset>
-          <button aria-label="сохранить" class="button popup__save-button" type="submit">Сохранить</button>
+          <button aria-label="сохранить" class="button popup__button" type="submit">Сохранить</button>
         </form>
       </div>
     </div>
@@ -66,10 +73,18 @@
           <button aria-label="закрыть" class="button popup__close-button" type="button"></button>
           <h3 class="popup__title">Новое место</h3>
           <fieldset class="popup__fieldset">
-            <input id="phototitle-field" type="text" name="PhotoTitle" class="popup__input" placeholder="Название" value="">
-            <input id="photolink-field" type="url" name="PhotoLink" class="popup__input" placeholder="Ссылка на картинку" value="">
+            <label class="popup__form-field">
+            <input id="phototitle-field" type="text" name="PhotoTitle" class="popup__input" placeholder="Название" value="" minlength="2"
+            maxlength="30" pattern="^[a-zA-Zа-яА-ЯёЁ\s-]+$"
+            data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы" required>
+            <span class="popup__input-error phototitle-field-error"></span>
+          </label>
+          <label class="popup__form-field">
+            <input id="photolink-field" type="url" name="PhotoLink" class="popup__input" placeholder="Ссылка на картинку" value="" required>
+            <span class="popup__input-error photolink-field-error"></span>
+          </label>
           </fieldset>
-          <button aria-label="создать" class="button popup__save-button" type="submit">Создать</button>
+          <button aria-label="создать" class="button popup__button" type="submit">Создать</button>
         </form>
       </div>
     </div>
@@ -89,8 +104,6 @@
   <footer>
     <p class="footer">&copy; 2022 Mesto Russia</p>
   </footer>
-  <script src="./scripts/cards.js"></script>
-  <script src="./scripts/index.js"></script>
 </body>
 
 </html>

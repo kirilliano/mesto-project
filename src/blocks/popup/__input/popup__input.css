@@ -4,6 +4,9 @@
   line-height: 1.21;
   margin: 0;
   padding: 0 0 9px 0;
-  border: 0;
+  border: none;
+  outline: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  max-width: 358px;
+  width: 100%;
 }

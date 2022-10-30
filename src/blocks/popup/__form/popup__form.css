@@ -5,8 +5,8 @@
   color: black;
   margin: 0;
   max-width: 430px;
-  position: relative;
   width: 100%;
+  position: relative;
 }
 
 @media screen and (max-width: 767px) {

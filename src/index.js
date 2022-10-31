@@ -15,6 +15,7 @@ const profileName = document.querySelector('.profile__name');
 const profileInfo = document.querySelector('.profile__info');
 const popupEditProfile = document.querySelector('#popupEditProfile');
 const formEditProfile = popupEditProfile.querySelector('.popup__form');
+const saveNewProfile = popupEditProfile.querySelector('#saveNewProfile');
 
 loadCards();
 
@@ -23,15 +24,17 @@ profileEditButton.addEventListener('click', function () {
   nameInput.value = profileName.textContent;
   jobInput.value = profileInfo.textContent;
   openPopup(popupEditProfile);
+  saveNewProfile.classList.remove('popup__button_disabled');
+
 })
 
-function formSubmitHandler (evt) {
+function handleProfileFormSubmit (evt) {
     evt.preventDefault();
     profileName.textContent = nameInput.value;
     profileInfo.textContent = jobInput.value;
     closePopup(popupEditProfile);
 }
-formEditProfile.addEventListener('submit', formSubmitHandler);
+formEditProfile.addEventListener('submit', handleProfileFormSubmit);
 
 //Добавление фото через попап
 const photoTitle = document.querySelector('#phototitle-field');
@@ -39,19 +42,21 @@ const photoLink = document.querySelector('#photolink-field');
 const addPhotoButton = document.querySelector('.profile__add-button');
 const addPhotoPopup = document.querySelector('#popupAddPhoto');
 const addPhotoForm = addPhotoPopup.querySelector('#formAddPhoto');
+const createNewCard = addPhotoForm.querySelector('#createNewCard');
 
 //Открытие попапа добавления фото
 addPhotoButton.addEventListener('click', function () {
   openPopup(addPhotoPopup);
 });
 
-function formAddPhotoHandler (evt) {
+function handleCardFormSubmit (evt) {
   evt.preventDefault();
   elementsBlock.prepend(addCard(photoTitle.value, photoLink.value));
   closePopup(addPhotoPopup);
   addPhotoForm.reset();
+  createNewCard.classList.add('popup__button_disabled');
 }
-addPhotoForm.addEventListener('submit', formAddPhotoHandler);
+addPhotoForm.addEventListener('submit', handleCardFormSubmit);
 
 enableValidation({
   formSelector: '.popup__form',

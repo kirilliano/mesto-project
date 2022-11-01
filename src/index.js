@@ -55,6 +55,7 @@ function handleCardFormSubmit (evt) {
   closePopup(addPhotoPopup);
   addPhotoForm.reset();
   createNewCard.classList.add('popup__button_disabled');
+  createNewCard.disabled = true;
 }
 addPhotoForm.addEventListener('submit', handleCardFormSubmit);
 

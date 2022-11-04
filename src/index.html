@@ -16,7 +16,9 @@
   </header>
   <main>
     <section class="profile">
+    <div class="profile__avatar-container">
       <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="Аватар">
+    </div>
       <div class="profile__data-container">
           <div class="profile__name-info-container">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -34,7 +36,10 @@
           <img class="element__image" src="" alt="">
           <figcaption class="element__caption">
             <h3 class="element__title"></h3>
-            <button aria-label="нравится" class="button element__button" type="button"></button>
+            <div class="element__likes-area">
+              <button aria-label="нравится" class="button element__button" type="button"></button>
+              <span class="element__likes-counter"></span>
+            </div>
             <button aria-label="удалить" class="button element__button-delete" type="button"></button>
           </figcaption>
         </figure>
@@ -99,6 +104,24 @@
         <button aria-label="закрыть окно" class="button popup__close-button" type="button"></button>
       </div>
     </div>
+
+<!--Попап редактирования аватара-->
+<div class="popup" id="popupChangeAvatar">
+  <div class="popup__container">
+    <form class="popup__form" name="changeAvatarForm" id="changeAvatarForm">
+      <button aria-label="закрыть" class="button popup__close-button" type="button"></button>
+      <h3 class="popup__title">Обновить аватар</h3>
+      <fieldset class="popup__fieldset">
+      <label class="popup__form-field">
+      <input id="avatar-url" type="url" name="avatarUrl" class="popup__input" placeholder="Ссылка на аватар" value="" required>
+      <span class="popup__input-error avatar-url-error"></span>
+      </label>
+      </fieldset>
+      <button aria-label="сохранить" class="button popup__button" type="submit" id="changeAvatarSubmitButton">Сохранить</button>
+    </form>
+  </div>
+</div>
+
 
   </main>
   <footer>

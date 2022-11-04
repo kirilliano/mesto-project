@@ -1,10 +1,10 @@
 .element__button {
   background-image: url(../../../images/like.svg);
   background-size: contain;
-  max-width: 22px;
-  width: 100%;
   border: 0;
-  margin-right: 5px;
+  height: 19px;
+  margin: 0;
+  width: 22px;
 }
 
 .element__button:hover {

@@ -1,68 +1,85 @@
-'use strict';
 //Функции для работы с карточками
 
-import { openImage } from '../components/modal.js'
+import { disactivateLike, activateLike, getInitialCards, userId, deleteCard } from './api.js'
+import { openImage } from './modal.js'
 
-//Массив начальных фотографий
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-
-//Создание начальной галереи
+//Создание начальной галереи и создание карточки
 export const elementsBlock = document.querySelector('.elements');
-const elementTemplate = document.querySelector('.element__template').content;
+export const elementTemplate = document.querySelector('.element__template').content;
 
-export function addCard (name, link) {
+function hasMyLike(card) {
+  return card.likes.some(function(like) {
+    like._id === userId;
+  })
+}
+
+export function addCard (card, elementTemplate) {
   const template = elementTemplate.querySelector('.element').cloneNode(true);
+  const likesCounter = template.querySelector('.element__likes-counter');
+  const likeButton = template .querySelector('.element__button');
 
   const image = template.querySelector('.element__image');
-  image.setAttribute('alt', name);
-  image.setAttribute('src', link);
+  image.setAttribute('alt', card.name);
+  image.setAttribute('src', card.link);
 
   const title = template.querySelector('.element__title');
-  title.textContent = name;
+  title.textContent = card.name;
 
-  //Лайк
-  const likeButton = template.querySelector('.element__button');
-  likeButton.addEventListener('click', function () {
-    likeButton.classList.toggle('element__button_active')
-  })
+  likesCounter.textContent = card.likes.length;
+
+  if (hasMyLike(card)) {
+    likeButton.classList.add('element__button_active');
+  }
+
+  likeButton.addEventListener('click', (evt) => {
+    if (evt.target.classList.contains('element__button_active')) {
+      disactivateLike(card._id)
+        .then(data => {
+          evt.target.classList.toggle('element__button_active');
+          likesCounter.textContent = data.likes.length;
+        })
+        .catch(function(err) {
+          console.log(`Ошибка ${err.status}`)
+        })
+    } else {
+      activateLike(card._id)
+        .then(data => {
+          evt.target.classList.toggle('element__button_active');
+          likesCounter.textContent = data.likes.length;
+        })
+        .catch(function(err) {
+          console.log(`Ошибка ${err.status}`)
+        })
+    }
+  });
 
   //Удаление
   const deleteButton = template.querySelector('.element__button-delete');
-  deleteButton.addEventListener('click', function() {
-    const element = deleteButton.closest('.element');
-    element.remove();
-  });
+  if (userId !== card.owner._id) {
+    deleteButton.classList.add('element__button-delete_disactive');
+  } else {
+    deleteButton.addEventListener('click', () => {
+        deleteCard(card._id)
+          .then(() => {
+            template.remove();
+          })
+          .catch(function(err) {
+            console.log(`Ошибка ${err.status}`)
+          })
+    });
+  }
   image.addEventListener('click', openImage);
   return template;
 }
 
-export function loadCards() {
-  initialCards.forEach(function(item) {
-    elementsBlock.append(addCard(item.name, item.link))
-  });
-};
+export function renderInitialCards() {
+  getInitialCards()
+  .then((res) => {
+    res.forEach(card => {
+      elementsBlock.append(addCard(card, elementTemplate))
+    })
+  })
+  .catch(function(err) {
+    console.log(`Ошибка ${err.status}`)
+  })
+}

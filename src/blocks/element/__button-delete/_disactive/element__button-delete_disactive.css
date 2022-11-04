@@ -1,0 +1,5 @@
+.element__button-delete_disactive {
+  display: none;
+  opacity: 0;
+  visibility: hidden;
+}

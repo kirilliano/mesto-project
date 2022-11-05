@@ -5,15 +5,15 @@
 import '../src/pages/index.css';
 import { enableValidation } from './components/validate.js';
 import { openPopup, closePopup } from './components/utils.js';
-import { getUserData, updateProfile, addCardToServer, changeAvatar } from './components/api.js';
-import { addCard, renderInitialCards, elementsBlock, elementTemplate } from './components/card.js'
+import { getUserData, getInitialCards, updateProfile, addCardToServer, changeAvatar } from './components/api.js';
+import { addCard, elementsBlock, elementTemplate } from './components/card.js'
 
 //DOM для редактирование профиля
 const profileEditButton = document.querySelector('.profile__edit-button');
 const nameInput = document.querySelector('#username-field');
 const jobInput = document.querySelector('#userinfo-field');
-export const profileName = document.querySelector('.profile__name');
-export const profileInfo = document.querySelector('.profile__info');
+const profileName = document.querySelector('.profile__name');
+const profileInfo = document.querySelector('.profile__info');
 const popupEditProfile = document.querySelector('#popupEditProfile');
 const formEditProfile = popupEditProfile.querySelector('.popup__form');
 const saveNewProfile = popupEditProfile.querySelector('#saveNewProfile');
@@ -23,7 +23,6 @@ profileEditButton.addEventListener('click', function () {
   nameInput.value = profileName.textContent;
   jobInput.value = profileInfo.textContent;
   openPopup(popupEditProfile);
-  saveNewProfile.classList.remove('popup__button_disabled');
 })
 
 function showTimeout(button) {
@@ -71,7 +70,7 @@ function handleCardFormSubmit (evt) {
   .then(res => {
     elementsBlock.prepend(addCard(res, elementTemplate));
     closePopup(addPhotoPopup);
-    addPhotoForm.reset();
+    evt.target.reset();
     createNewCard.classList.add('popup__button_disabled');
     createNewCard.disabled = true;
   })
@@ -79,7 +78,7 @@ function handleCardFormSubmit (evt) {
     console.log(`Ошибка ${err.status}`)
   })
   .finally(function() {
-    setTimeout(showTimeout, 1000, createNewCard)
+    showTimeout(createNewCard)
   });
 }
 addPhotoForm.addEventListener('submit', handleCardFormSubmit);
@@ -140,5 +139,24 @@ function handleNewAvatarSubmit (evt) {
 }
 changeAvatarForm.addEventListener('submit', handleNewAvatarSubmit);
 
-getUserData();
-renderInitialCards();
+
+export let userId;
+function initUserId(id) {
+  userId = id;
+}
+
+Promise.all([getUserData(), getInitialCards()])
+  .then(res => {
+    initUserId(res[0]._id);
+    profileName.textContent = res[0].name;
+    profileInfo.textContent = res[0].about;
+    profileAvatar.src = res[0].avatar;
+
+    res[1].forEach(card => {
+      elementsBlock.append(addCard(card, elementTemplate));
+    });
+  })
+  .catch(function(err) {
+    console.log(`Ошибка ${err.status}`)
+  })
+

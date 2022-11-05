@@ -1,7 +1,8 @@
 //Функции для работы с карточками
 
-import { disactivateLike, activateLike, getInitialCards, userId, deleteCard } from './api.js'
+import { disactivateLike, activateLike, deleteCard } from './api.js'
 import { openImage } from './modal.js'
+import { userId } from '../index.js'
 
 //Создание начальной галереи и создание карточки
 export const elementsBlock = document.querySelector('.elements');
@@ -9,7 +10,7 @@ export const elementTemplate = document.querySelector('.element__template').cont
 
 function hasMyLike(card) {
   return card.likes.some(function(like) {
-    like._id === userId;
+    return like._id === userId;
   })
 }
 
@@ -68,18 +69,6 @@ export function addCard (card, elementTemplate) {
           })
     });
   }
-  image.addEventListener('click', openImage);
+  image.addEventListener('click', () => openImage(card.name, card.link));
   return template;
-}
-
-export function renderInitialCards() {
-  getInitialCards()
-  .then((res) => {
-    res.forEach(card => {
-      elementsBlock.append(addCard(card, elementTemplate))
-    })
-  })
-  .catch(function(err) {
-    console.log(`Ошибка ${err.status}`)
-  })
 }

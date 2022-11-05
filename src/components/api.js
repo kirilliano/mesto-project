@@ -1,5 +1,3 @@
-import { profileName, profileInfo, profileAvatar } from '../index.js'
-
 const config = {
   baseUrl: 'https://nomoreparties.co/v1/plus-cohort-16',
   headers: {
@@ -33,23 +31,9 @@ export function getInitialCards() {
   return fetchServerData("cards")
 }
 
-export let userId;
-function initUserId(id) {
-  userId = id;
-}
-
 //Получение информации о пользователе с сервера
 export function getUserData() {
   return fetchServerData("users/me")
-  .then(data => {
-    initUserId(data._id);
-    profileName.textContent = data.name;
-    profileInfo.textContent = data.about;
-    profileAvatar.src = data.avatar;
-  })
-  .catch(function(err) {
-    console.log(`Ошибка ${err.status}`)
-  })
 }
 
 //Запрос на обновление информации о пользователе на сервере

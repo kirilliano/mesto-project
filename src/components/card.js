@@ -6,7 +6,7 @@ import { userId } from '../index.js'
 
 //Создание начальной галереи и создание карточки
 export const elementsBlock = document.querySelector('.elements');
-export const elementTemplate = document.querySelector('.element__template').content;
+const elementTemplate = document.querySelector('.element__template').content;
 
 function hasMyLike(card) {
   return card.likes.some(function(like) {
@@ -14,6 +14,7 @@ function hasMyLike(card) {
   })
 }
 
+//Класс карточки
 class Card {
   constructor({name, link}, {selector}) {
     this.name = name;
@@ -44,7 +45,7 @@ class Card {
   }
 }
 
-export function addCard (card, elementTemplate) {
+export function addCard (card) {
   const template = elementTemplate.querySelector('.element').cloneNode(true);
   const likesCounter = template.querySelector('.element__likes-counter');
   const likeButton = template .querySelector('.element__button');

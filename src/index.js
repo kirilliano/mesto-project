@@ -6,7 +6,7 @@ import '../src/pages/index.css';
 import { enableValidation } from './components/validate.js';
 import { openPopup, closePopup } from './components/utils.js';
 import { getUserData, getInitialCards, updateProfile, addCardToServer, changeAvatar } from './components/api.js';
-import { addCard, elementsBlock, elementTemplate } from './components/card.js'
+import { addCard, elementsBlock } from './components/card.js'
 
 //DOM для редактирование профиля
 const profileEditButton = document.querySelector('.profile__edit-button');
@@ -68,7 +68,7 @@ function handleCardFormSubmit (evt) {
 
   addCardToServer(photoTitle.value, photoLink.value)
   .then(res => {
-    elementsBlock.prepend(addCard(res, elementTemplate));
+    elementsBlock.prepend(addCard(res));
     closePopup(addPhotoPopup);
     evt.target.reset();
     createNewCard.classList.add('popup__button_disabled');
@@ -153,7 +153,7 @@ Promise.all([getUserData(), getInitialCards()])
     profileAvatar.src = res[0].avatar;
 
     res[1].forEach(card => {
-      elementsBlock.append(addCard(card, elementTemplate));
+      elementsBlock.append(addCard(card));
     });
   })
   .catch(function(err) {

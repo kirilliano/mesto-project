@@ -5,7 +5,7 @@ const config = {
     'Content-Type': 'application/json'
   }
 }
-/*
+
 //Функция для шаблона запроса у сервера
 function fetchServerData (path, method = "GET", body = null) {
   const fetchSettings = {
@@ -65,7 +65,7 @@ export function deleteCard(id) {
 export function changeAvatar(link) {
   return fetchServerData('users/me/avatar', 'PATCH', {avatar: link});
 }
-*/
+
 
 class Api {
   constructor({baseUrl, headers}) {

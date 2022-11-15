@@ -14,6 +14,36 @@ function hasMyLike(card) {
   })
 }
 
+class Card {
+  constructor({name, link}, {selector}) {
+    this.name = name;
+    this.link = link;
+    this._selector = selector;
+  }
+
+  _getElement () {
+    const cardElement = document.querySelector(this._selector).content
+    .querySelector('.element').cloneNode(true)
+
+    return cardElement
+  }
+
+  _setAttribute() {
+    this._element = this._getElement();
+
+    const cardImage = this._element.querySelector('.element__image')
+
+    cardImage.src = this.link
+    cardImage.alt = this.name
+
+    this._element.querySelector('.element__title').textContent = this.name
+  }
+
+  _setEventListeners() {
+
+  }
+}
+
 export function addCard (card, elementTemplate) {
   const template = elementTemplate.querySelector('.element').cloneNode(true);
   const likesCounter = template.querySelector('.element__likes-counter');

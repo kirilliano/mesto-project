@@ -5,7 +5,7 @@ const config = {
     'Content-Type': 'application/json'
   }
 }
-
+/*
 //Функция для шаблона запроса у сервера
 function fetchServerData (path, method = "GET", body = null) {
   const fetchSettings = {
@@ -65,3 +65,70 @@ export function deleteCard(id) {
 export function changeAvatar(link) {
   return fetchServerData('users/me/avatar', 'PATCH', {avatar: link});
 }
+*/
+
+class Api {
+  constructor({baseUrl, headers}) {
+    this._baseUrl = baseUrl;
+    this._headers = headers;
+  }
+
+
+  getServerData(path, method, body = null) {
+    this.path = path;
+    this.method = method;
+    this.body = body
+
+    const fetchSettings = {
+      method: method,
+      headers: config.headers
+    }
+
+    if (body) {
+      fetchSettings.body = JSON.stringify(body)
+    }
+
+    return fetch(`${config.baseUrl}/${path}`, fetchSettings)
+    .then(res => {
+      if (res.ok) {
+        return res.json()
+      }
+      return Promise.reject(res.status);
+    });
+ }
+
+ getInitialCards() {
+  return this.getServerData('cards', "GET")
+ }
+
+ getUserData() {
+  return this.getServerData("users/me", "GET")
+}
+
+updateProfile(name, about) {
+  return getServerData("users/me", "PATCH", { name: name, about: about });
+}
+
+addCardToServer(name, link) {
+  return getServerData("cards", "POST", { name: name, link: link });
+}
+
+activateLike(cardId) {
+  return getServerData(`cards/likes/${cardId}`, 'PUT');
+}
+
+disactivateLike(cardId) {
+  return getServerData(`cards/likes/${cardId}`, 'DELETE');
+}
+
+deleteCard(id) {
+  return getServerData(`cards/${id}`, 'DELETE');
+}
+
+changeAvatar(link) {
+  return getServerData('users/me/avatar', 'PATCH', {avatar: link});
+}
+
+}
+
+//const api = new Api(config);

@@ -9,22 +9,22 @@ export const elementsBlock = document.querySelector('.elements');
 const elementTemplate = document.querySelector('.element__template').content;
 
 function hasMyLike(card) {
-  return card.likes.some(function(like) {
+  return card.likes.some(function (like) {
     return like._id === userId;
   })
 }
 
 //Класс карточки
 class Card {
-  constructor({data}, {selector}) {
-    this.name = data.name;
-    this.link = data.link;
+  constructor(/*{ data }*/, { selector }) {
+    /*this.name = data.name;
+    this.link = data.link;*/
     this._selector = selector;
   }
 
-  _getElement () {
+  _getElement() {
     const cardElement = document.querySelector(this._selector).content
-    .querySelector('.element').cloneNode(true)
+      .querySelector('.element').cloneNode(true)
 
     return cardElement
   }
@@ -44,6 +44,8 @@ class Card {
     return this._element
   }
 
+  //_like() {}
+
   _setEventListeners() {
     this._element.addEventListener('click', () => {
       //openCardPopup
@@ -51,10 +53,40 @@ class Card {
   }
 }
 
-export function addCard (card) {
+//отдельный компонент
+/*class defaultCard extends Card {
+  constructor({data}, selector) {
+    super(selector);
+    this.name = data.name;
+    this.link = data.link;
+  }
+
+  generate() {
+    this._element = super._getElement();
+
+    const cardImage = this._element.querySelector('.element__image')
+
+    cardImage.src = this.link
+    cardImage.alt = this.name
+
+    this._element.querySelector('.element__title').textContent = this.name
+
+    super._setEventListeners()
+
+    return this._element
+  }
+}*/
+
+/* это в index.js
+  const card = this.isOwner
+    ? new UserCard()
+    : new defalutCard()
+*/
+
+export function addCard(card) {
   const template = elementTemplate.querySelector('.element').cloneNode(true);
   const likesCounter = template.querySelector('.element__likes-counter');
-  const likeButton = template .querySelector('.element__button');
+  const likeButton = template.querySelector('.element__button');
 
   const image = template.querySelector('.element__image');
   image.setAttribute('alt', card.name);
@@ -76,7 +108,7 @@ export function addCard (card) {
           evt.target.classList.toggle('element__button_active');
           likesCounter.textContent = data.likes.length;
         })
-        .catch(function(err) {
+        .catch(function (err) {
           console.log(`Ошибка ${err.status}`)
         })
     } else {
@@ -85,7 +117,7 @@ export function addCard (card) {
           evt.target.classList.toggle('element__button_active');
           likesCounter.textContent = data.likes.length;
         })
-        .catch(function(err) {
+        .catch(function (err) {
           console.log(`Ошибка ${err.status}`)
         })
     }
@@ -97,13 +129,13 @@ export function addCard (card) {
     deleteButton.classList.add('element__button-delete_disactive');
   } else {
     deleteButton.addEventListener('click', () => {
-        deleteCard(card._id)
-          .then(() => {
-            template.remove();
-          })
-          .catch(function(err) {
-            console.log(`Ошибка ${err.status}`)
-          })
+      deleteCard(card._id)
+        .then(() => {
+          template.remove();
+        })
+        .catch(function (err) {
+          console.log(`Ошибка ${err.status}`)
+        })
     });
   }
   image.addEventListener('click', () => openImage(card.name, card.link));

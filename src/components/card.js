@@ -16,9 +16,9 @@ function hasMyLike(card) {
 
 //Класс карточки
 class Card {
-  constructor({name, link}, {selector}) {
-    this.name = name;
-    this.link = link;
+  constructor({data}, {selector}) {
+    this.name = data.name;
+    this.link = data.link;
     this._selector = selector;
   }
 
@@ -38,10 +38,16 @@ class Card {
     cardImage.alt = this.name
 
     this._element.querySelector('.element__title').textContent = this.name
+
+    this._setEventListeners()
+
+    return this._element
   }
 
   _setEventListeners() {
-
+    this._element.addEventListener('click', () => {
+      //openCardPopup
+    })
   }
 }
 

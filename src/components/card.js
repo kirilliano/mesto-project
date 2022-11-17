@@ -41,8 +41,10 @@ class Card {
     this._card = this._getElement();
 
     this.cardImage = this._card.querySelector(".element__image");
-    // + добавить счетчик лайков, кнопку лайка, кнопку удаления
-    // таким же способом как я обозначил cardImage
+    this.likeButton = this._card.querySelector('element__button');
+    this.deleteButton = this._card.querySelector('.element__button-delete')
+    this.likesCounter = this._card.querySelector('.element__likes-counter')
+
     this.cardImage.src = this._link;
     this.cardImage.alt = this._name;
     this.cardName.textContent = this._name;
@@ -53,12 +55,15 @@ class Card {
   }
 
   _like() {
-    this.likeButton = this._card.querySelector('element__button');
+    //this._likeMy = this._likes.filter(like => like._id === userMe)
     this.likeButton.classList.toggle("element__button_active")
     this._setEventListeners()
   }
 
-  //методы: удаления карточки, подсчета лайков
+  //методы: для определения будет ли кнопка удалить, состояние лайка, подсчета лайков
+  _deleteCard() {
+    this._card.remove()
+  }
 
   _setEventListeners() {
     this._like().addEventListener('click', () => {
@@ -66,6 +71,7 @@ class Card {
     })
 
     //кнопкаУдаления.addEventListener('click', () => { this.deleteCard() })
+    //
   }
 }
 

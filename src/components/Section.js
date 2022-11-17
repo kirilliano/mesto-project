@@ -25,7 +25,7 @@ const cardContainer = new Section({
 
     const cardElement = card.generate();
 
-    cardContainer.setItem(cardElement);
+    cardContainer.setItems(cardElement);
   },
 },
   cardContainerSelector(импортированный из utils.js)

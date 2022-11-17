@@ -51,12 +51,6 @@ class Card {
     this._setEventListeners()
   }
 
-  _deleteCard() {
-    this._element.remove()
-
-    this._setEventListeners()
-  }
-
   _setEventListeners() {
     this._like().addEventListener('click', () => {
       this._like()
@@ -65,30 +59,6 @@ class Card {
     //кнопкаYдаления.addEventListener('click', () => { this.deleteCard() })
   }
 }
-
-//отдельный компонент
-/*class defaultCard extends Card {
-  constructor({data}, selector) {
-    super(selector);
-    this.name = data.name;
-    this.link = data.link;
-  }
-
-  generate() {
-    this._element = super._getElement();
-
-    const cardImage = this._element.querySelector('.element__image')
-
-    cardImage.src = this.link
-    cardImage.alt = this.name
-
-    this._element.querySelector('.element__title').textContent = this.name
-
-    super._setEventListeners()
-
-    return this._element
-  }
-}*/
 
 export function addCard(card) {
   const template = elementTemplate.querySelector(".element").cloneNode(true);

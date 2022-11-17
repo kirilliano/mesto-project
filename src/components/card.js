@@ -16,9 +16,9 @@ function hasMyLike(card) {
 
 //Класс карточки
 class Card {
-  constructor({ data }, { selector }) {
-    this.name = data.name;
-    this.link = data.link;
+  constructor({ data }, selector) {
+    this._name = data.name;
+    this._link = data.link;
     this._selector = selector;
   }
 
@@ -31,15 +31,14 @@ class Card {
     return cardElement;
   }
 
-  _setAttribute() {
+  _generate() {
     this._element = this._getElement();
 
     const cardImage = this._element.querySelector(".element__image");
 
-    cardImage.src = this.link;
-    cardImage.alt = this.name;
-
-    this._element.querySelector(".element__title").textContent = this.name;
+    cardImage.src = this._link;
+    cardImage.alt = this._name;
+    this._element.querySelector(".element__title").textContent = this._name;
 
     this._setEventListeners();
 
@@ -47,38 +46,23 @@ class Card {
   }
 
   _like() {
-    const likeButton = this._element.querySelector(".element__button");
-    /*likeButton.addEventListener("click", () => {
-      if (likeButton.classList.contains("element__button_active")) {
-        fetchDeleteLike(cardId).then(() => {
-          likeButton.classList.toggle("element__button_active");
-          likesCount.textContent = parseInt(likesCount.textContent) - 1;
-        });
-      } else {
-        fetchPutLike(cardId).then(() => {
-          likeButton.classList.toggle("card__like_active");
-          likesCount.textContent = parseInt(likesCount.textContent) + 1;
-        });
-      }
-    });*/
-    likeButton.classList.toggle("element__button_active")
-    return likeButton
+    this.likeButton = this._element.querySelector('element__button');
+    this.likeButton.classList.toggle("element__button_active")
+    this._setEventListeners()
   }
 
-  _openCard() {
-    popupImage.setAttribute('src', link);
-    popupImage.setAttribute('alt', name);
-    imageCaption.textContent = name;
+  _deleteCard() {
+    this._element.remove()
+
+    this._setEventListeners()
   }
 
   _setEventListeners() {
-    this._element.addEventListener("click", () => {
-      this._openCard()
-    });
-
-    this.likeButton.addEventListener('click', () => {
+    this._like().addEventListener('click', () => {
       this._like()
     })
+
+    //кнопкаYдаления.addEventListener('click', () => { this.deleteCard() })
   }
 }
 
@@ -105,12 +89,6 @@ class Card {
     return this._element
   }
 }*/
-
-/* это в index.js
-  const card = this.isOwner
-    ? new UserCard()
-    : new defalutCard()
-*/
 
 export function addCard(card) {
   const template = elementTemplate.querySelector(".element").cloneNode(true);

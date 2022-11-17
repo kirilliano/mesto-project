@@ -31,7 +31,7 @@ class Popup {
 
 	close() {
 		this._popup.classList.remove("popup_opened");
-		this._setEventListeners();
+		this._removeEventListeners();
 	}
 
 	_handlePressEsc = (evt) => {
@@ -41,24 +41,19 @@ class Popup {
 		}
 	};
 
-	_handlePressClick() {
-		this.popups.forEach((popup) => {
-      popup.addEventListener('mousedown', (evt) => {
-        if (evt.target.classList.contains('popup_opened')) {
-          close(popup)
-        }
-        if (evt.target.classList.contains('popup__close')) {
-          close(popup)
-        }
-      })
-    })
+	_handleCloseClick(evt) {
+    if (evt.target.classList.contains('popup_opened')) {
+      this.close()
+    }
 	};
 
 	_setEventListeners() {
 		this._popup.addEventListener("mousedown", this._handlePressClick);
 		document.addEventListener("keydown", this._handlePressEsc);
+	}
 
+  _removeEventListeners() {
     this._popup.removeEventListener("mousedown", this._handlePressClick);
 		document.removeEventListener("keydown", this._handlePressEsc);
-	}
+  }
 }

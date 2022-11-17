@@ -16,9 +16,15 @@ function hasMyLike(card) {
 
 //Класс карточки
 class Card {
-  constructor({ data }, selector) {
+  constructor({ data }, userId,selector) {
     this._name = data.name;
     this._link = data.link;
+    this._likes = data.likes;
+    this._id = data.id;
+    this._ownerId = data.owner._id;
+
+    this._userId = userId;
+
     this._selector = selector;
   }
 
@@ -32,31 +38,34 @@ class Card {
   }
 
   _generate() {
-    this._element = this._getElement();
+    this._card = this._getElement();
 
-    const cardImage = this._element.querySelector(".element__image");
-
-    cardImage.src = this._link;
-    cardImage.alt = this._name;
-    this._element.querySelector(".element__title").textContent = this._name;
+    this.cardImage = this._card.querySelector(".element__image");
+    // + добавить счетчик лайков, кнопку лайка, кнопку удаления
+    // таким же способом как я обозначил cardImage
+    this.cardImage.src = this._link;
+    this.cardImage.alt = this._name;
+    this.cardName.textContent = this._name;
 
     this._setEventListeners();
 
-    return this._element;
+    return this._card;
   }
 
   _like() {
-    this.likeButton = this._element.querySelector('element__button');
+    this.likeButton = this._card.querySelector('element__button');
     this.likeButton.classList.toggle("element__button_active")
     this._setEventListeners()
   }
+
+  //методы: удаления карточки, подсчета лайков
 
   _setEventListeners() {
     this._like().addEventListener('click', () => {
       this._like()
     })
 
-    //кнопкаYдаления.addEventListener('click', () => { this.deleteCard() })
+    //кнопкаУдаления.addEventListener('click', () => { this.deleteCard() })
   }
 }
 

@@ -3,7 +3,7 @@
 //Инициализация JS-кода, добавление слушателей и другие важные участки
 
 import '../src/pages/index.css';
-import { enableValidation } from './components/validate.js';
+import { enableValidation } from './components/FormValidator.js';
 import { openPopup, closePopup } from './components/utils.js';
 import { getUserData, getInitialCards, updateProfile, addCardToServer, changeAvatar } from './components/api.js';
 import { addCard, elementsBlock } from './components/card.js'

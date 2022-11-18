@@ -1,7 +1,7 @@
 class PopupWithImage extends Popup {
     constructor(selector) {
         super(selector);
-        
+
         this._popupImage = this._popup.querySelector('.popup__image')
         this._popupImgCaption = this._popup.querySelector('.popup__image-caption')
     }
@@ -14,3 +14,6 @@ class PopupWithImage extends Popup {
         this._popupImgCaption.textContent = data.name;
     }
 }
+
+//index.js
+//new popupImg = new PopupWithImage(селектор)

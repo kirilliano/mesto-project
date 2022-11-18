@@ -1,6 +1,8 @@
 //Класс карточки
 class Card {
-  constructor({ data }, userId, selector, { cardClick }) {
+  constructor({ data }, userId, selector, {
+    cardClick
+  }) {
     this._name = data.name;
     this._link = data.link;
     this._likes = data.likes;
@@ -11,7 +13,8 @@ class Card {
 
     this._selector = selector;
 
-    this.cardClick = cardClick
+    this.cardClick = cardClick;
+    this.cardLike = cardLike
   }
 
   _getElement() {
@@ -82,6 +85,19 @@ class Card {
       this._deleteCard()
     })
 
-    this.cardImage.addEventListener('click', () => { this.cardClick({ name: this._name, link: this._link }) })
+    this.cardImage.addEventListener('click', () => {
+      this.cardClick({ name: this._name, link: this._link })
+    })
   }
 }
+
+
+/*
+index.js
+
+function createCard(data) {
+  const card = new Card(data, userId, '.selector', {
+    cardClick: data => popupImage.open(data)
+  })
+}
+*/

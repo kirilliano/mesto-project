@@ -9,25 +9,23 @@ class Section {
     this._renderedItems.forEach(item => this._renderer(item))
   }
 
-  setItems(element) {
-    this._container.append(element)
-  } 
+  setItems(cardElement) {
+    this._container.prepend(this.render(cardElement))
+  }
 }
 
 // index.js
 /*
 const cardContainer = new Section({
-  data: карточки,
+  data: ссылка на объект из карточек,
   renderer: (item) => {
-    const card = item.isOwner
-      ? new UserCard(item, '.card-template_type_user')
-      : new DefaultCard(item, '.card-template_type_default');
+    const card = createCard(item)
 
     const cardElement = card.generate();
 
     cardContainer.setItems(cardElement);
   },
 },
-  cardContainerSelector(импортированный из utils.js)
+  '.cardContainerSelector'
 );
 */

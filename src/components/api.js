@@ -7,7 +7,7 @@ const config = {
 }
 
 //Функция для шаблона запроса у сервера
-function fetchServerData (path, method = "GET", body = null) {
+function fetchServerData(path, method = "GET", body = null) {
   const fetchSettings = {
     method: method,
     headers: config.headers
@@ -18,12 +18,12 @@ function fetchServerData (path, method = "GET", body = null) {
   }
 
   return fetch(`${config.baseUrl}/${path}`, fetchSettings)
-  .then(res => {
-    if (res.ok) {
-      return res.json()
-    }
-    return Promise.reject(res.status);
-  });
+    .then(res => {
+      if (res.ok) {
+        return res.json()
+      }
+      return Promise.reject(res.status);
+    });
 }
 
 //Получение информации о карточках на сервере
@@ -63,12 +63,21 @@ export function deleteCard(id) {
 
 //Запрос на изменение аватара
 export function changeAvatar(link) {
-  return fetchServerData('users/me/avatar', 'PATCH', {avatar: link});
+  return fetchServerData('users/me/avatar', 'PATCH', { avatar: link });
 }
 
 
+// const api = new Api(config)
+// const config = {
+//  baseUrl: 'https://nomoreparties.co/v1/plus-cohort-16',
+//  headers: {
+//    'Content-Type': 'application/json'
+//    authorization: 'bb462bb4-22b0-43a6-bcbf-709edef952c3',
+//  }
+
 class Api {
-  constructor({baseUrl, headers}) {
+
+  constructor({ baseUrl, headers }) {
     this._baseUrl = baseUrl;
     this._headers = headers;
   }
@@ -81,54 +90,52 @@ class Api {
 
     const fetchSettings = {
       method: method,
-      headers: config.headers
+      headers: this._headers
     }
 
     if (body) {
       fetchSettings.body = JSON.stringify(body)
     }
 
-    return fetch(`${config.baseUrl}/${path}`, fetchSettings)
-    .then(res => {
-      if (res.ok) {
-        return res.json()
-      }
-      return Promise.reject(res.status);
-    });
- }
+    return fetch(`${this._baseUrl}/${path}`, fetchSettings)
+      .then(res => {
+        if (res.ok) {
+          return res.json()
+        }
+        return Promise.reject(res.status);
+      });
+  }
 
- getInitialCards() {
-  return this.getServerData('cards', "GET")
- }
+  getInitialCards() {
+    return this.getServerData('cards', "GET")
+  }
 
- getUserData() {
-  return this.getServerData("users/me", "GET")
+  getUserData() {
+    return this.getServerData("users/me", "GET")
+  }
+
+  updateProfile(name, about) {
+    return getServerData("users/me", "PATCH", { name: name, about: about });
+  }
+
+  addCardToServer(name, link) {
+    return getServerData("cards", "POST", { name: name, link: link });
+  }
+
+  activateLike(cardId) {
+    return getServerData(`cards/likes/${cardId}`, 'PUT');
+  }
+
+  disactivateLike(cardId) {
+    return getServerData(`cards/likes/${cardId}`, 'DELETE');
+  }
+
+  deleteCard(id) {
+    return getServerData(`cards/${id}`, 'DELETE');
+  }
+
+  changeAvatar(link) {
+    return getServerData('users/me/avatar', 'PATCH', { avatar: link });
+  }
+
 }
-
-updateProfile(name, about) {
-  return getServerData("users/me", "PATCH", { name: name, about: about });
-}
-
-addCardToServer(name, link) {
-  return getServerData("cards", "POST", { name: name, link: link });
-}
-
-activateLike(cardId) {
-  return getServerData(`cards/likes/${cardId}`, 'PUT');
-}
-
-disactivateLike(cardId) {
-  return getServerData(`cards/likes/${cardId}`, 'DELETE');
-}
-
-deleteCard(id) {
-  return getServerData(`cards/${id}`, 'DELETE');
-}
-
-changeAvatar(link) {
-  return getServerData('users/me/avatar', 'PATCH', {avatar: link});
-}
-
-}
-
-//const api = new Api(config);

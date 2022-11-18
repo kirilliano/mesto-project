@@ -11,7 +11,7 @@ class Section {
 
   setItems(element) {
     this._container.append(element)
-  }
+  } 
 }
 
 // index.js

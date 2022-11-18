@@ -16,7 +16,7 @@ function hasMyLike(card) {
 
 //Класс карточки
 class Card {
-  constructor({ data }, userId,selector) {
+  constructor({ data }, userId, selector) {
     this._name = data.name;
     this._link = data.link;
     this._likes = data.likes;
@@ -56,22 +56,49 @@ class Card {
 
   _like() {
     //this._likeMy = this._likes.filter(like => like._id === userMe)
-    this.likeButton.classList.toggle("element__button_active")
+    this.likeButton.classList.add("element__button_active")
     this._setEventListeners()
   }
 
-  //методы: для определения будет ли кнопка удалить, состояние лайка, подсчета лайков
+  _myLike = () => {
+    const myLike =
+      this._likes.filter(like => like._id === this._userId);
+
+    return myLike
+  }
+
+  _likesState() {
+    if (this.likeButton.classList.contains('element__button_active')) {
+      likeButton.classList.toggle('element__button_active')
+      likesCount.textContent = parseInt(this.likesCounter.textContent) - 1;
+    } else {
+      likeButton.classList.toggle('element__button_active')
+      likesCount.textContent = parseInt(this.likesCounter.textContent) + 1;
+    }
+
+    if (this._likeMyId().length === 1) {
+      this._like()
+    }
+  }
+
+  _delBtnState() {
+    if (this._ownerId !== this._userId) {
+      this.deleteButton.classList.add('element__button-delete_disactive')
+    }
+  }
+  
   _deleteCard() {
     this._card.remove()
   }
 
   _setEventListeners() {
-    this._like().addEventListener('click', () => {
+    this.likeButton.addEventListener('click', () => {
       this._like()
     })
 
-    //кнопкаУдаления.addEventListener('click', () => { this.deleteCard() })
-    //
+    this.deleteButton.addEventListener('click', () => {
+      this._deleteCard()
+    })
   }
 }
 

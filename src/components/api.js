@@ -1,7 +1,6 @@
 //Функция для шаблона запроса у сервера
 
 
-// const api = new Api(config)
 // const config = {
 //  baseUrl: 'https://nomoreparties.co/v1/plus-cohort-16',
 //  headers: {

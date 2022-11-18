@@ -1,8 +1,6 @@
 //Класс карточки
 class Card {
-  constructor({ data }, userId, selector, {
-    cardClick
-  }) {
+  constructor({ data }, userId, selector, { cardClick }) {
     this._name = data.name;
     this._link = data.link;
     this._likes = data.likes;

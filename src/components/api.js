@@ -7,7 +7,7 @@
 //    'Content-Type': 'application/json'
 //    authorization: 'bb462bb4-22b0-43a6-bcbf-709edef952c3',
 //  }
-
+//поставить асинки
 class Api {
   constructor(baseUrl, token) {
     this._baseUrl = baseUrl;

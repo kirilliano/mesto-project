@@ -10,7 +10,7 @@ class PopupWithForm extends Popup {
     this.inputList = this.popupForm.querySelectorAll('.popup__input')
     this._formValues = {};
     this.inputList.forEach((input) => {
-        this._formValues[input.name] = input.value
+      this._formValues[input.name] = input.value
     })
     return this._formValues;
   }
@@ -37,10 +37,10 @@ class PopupWithForm extends Popup {
 
   setButtonLoadingStatus(isLoading) {
     if (isLoading) {
-      saveButton.value = 'Сохранение...'
-  } else {
-    saveButton.value = this.originalText
-  }
+      this.saveButton.value = 'Сохранение...'
+    } else {
+      this.saveButton.value = this.originalText
+    }
   }
 }
 

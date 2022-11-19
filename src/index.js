@@ -145,6 +145,8 @@ function initUserId(id) {
   userId = id;
 }
 
+
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 Promise.all([getUserData(), getInitialCards()])
   .then(res => {
     initUserId(res[0]._id);

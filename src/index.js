@@ -124,19 +124,3 @@ function initUserId(id) {
 }
 
 
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-Promise.all([getUserData(), getInitialCards()])
-  .then(res => {
-    initUserId(res[0]._id);
-    profileName.textContent = res[0].name;
-    profileInfo.textContent = res[0].about;
-    profileAvatar.src = res[0].avatar;
-
-    res[1].forEach(card => {
-      elementsBlock.append(addCard(card));
-    });
-  })
-  .catch(function (err) {
-    console.log(`Ошибка ${err.status}`)
-  })
-

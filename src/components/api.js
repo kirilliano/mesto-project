@@ -1,14 +1,5 @@
 //Функция для шаблона запроса у сервера
 
-
-// const config = {
-//  baseUrl: 'https://nomoreparties.co/v1/plus-cohort-16',
-//  headers: {
-//    'Content-Type': 'application/json'
-//    authorization: 'bb462bb4-22b0-43a6-bcbf-709edef952c3',
-//  }
-//создать объект config в utils
-
 export default class Api {
   constructor({baseUrl, token}) {
     this._baseUrl = baseUrl;
@@ -90,5 +81,9 @@ export default class Api {
       body: { avatar: link }
     });
     return this.checkPromise(res);
+  }
+
+  getData() {
+    Promise.all([this.getUserData(), this.getInitialCards()])
   }
 }

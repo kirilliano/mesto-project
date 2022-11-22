@@ -8,6 +8,15 @@ const formEditProfile = popupEditProfile.querySelector('.popup__form');
 const saveNewProfile = popupEditProfile.querySelector('#saveNewProfile');
 const profileAvatarContainer = document.querySelector('.profile__avatar-container');
 const profileAvatar = profileAvatarContainer.querySelector('.profile__avatar');
+const photoTitle = document.querySelector('#phototitle-field');
+const photoLink = document.querySelector('#photolink-field');
+const addPhotoButton = document.querySelector('.profile__add-button');
+const addPhotoPopup = document.querySelector('#popupAddPhoto');
+const addPhotoForm = addPhotoPopup.querySelector('#formAddPhoto');
+const createNewCard = addPhotoForm.querySelector('#createNewCard');
+const openImagePopup = document.querySelector('.popup_open-image');
+const popupImage = document.querySelector('.popup__image');
+const imageCaption = document.querySelector('.popup__image-caption');
 
 const config = {
   baseUrl: 'https://nomoreparties.co/v1/plus-cohort-16',
@@ -16,5 +25,9 @@ const config = {
     authorization: 'bb462bb4-22b0-43a6-bcbf-709edef952c3',
   }
 }
-export { profileEditButton, nameInput, jobInput, profileName, profileInfo, popupEditProfile,
-  formEditProfile, saveNewProfile, config, profileAvatar, profileAvatarContainer }
+export {
+  profileEditButton, nameInput, jobInput, profileName, profileInfo, popupEditProfile,
+  formEditProfile, saveNewProfile, config, profileAvatar, profileAvatarContainer,
+  photoTitle, addPhotoButton, photoLink, addPhotoPopup, addPhotoForm, createNewCard,
+  openImagePopup, popupImage, imageCaption
+}

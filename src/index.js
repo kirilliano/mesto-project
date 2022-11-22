@@ -15,9 +15,10 @@ import UserInfo from './components/UserInfo';
 
 //DOM для редактирование профиля
 import {
-  profileEditButton, nameInput, jobInput, profileName, profileInfo,
-  popupEditProfile, formEditProfile, saveNewProfile, config, profileAvatar,
-  profileAvatarContainer
+  profileEditButton, nameInput, jobInput, profileName, profileInfo, popupEditProfile,
+  formEditProfile, saveNewProfile, config, profileAvatar, profileAvatarContainer,
+  photoTitle, addPhotoButton, photoLink, addPhotoPopup, addPhotoForm, createNewCard,
+  openImagePopup, popupImage, imageCaption
 } from './utils.js'
 
 //получение данных
@@ -37,41 +38,26 @@ api
 
 //Редактирование профиля
 
-formEditProfile.addEventListener('submit', handleProfileFormSubmit);
-
-//Добавление фото через попап
-const photoTitle = document.querySelector('#phototitle-field');
-const photoLink = document.querySelector('#photolink-field');
-const addPhotoButton = document.querySelector('.profile__add-button');
-const addPhotoPopup = document.querySelector('#popupAddPhoto');
-const addPhotoForm = addPhotoPopup.querySelector('#formAddPhoto');
-const createNewCard = addPhotoForm.querySelector('#createNewCard');
-
-//Открытие попапа добавления фото
-addPhotoButton.addEventListener('click', function () {
-  openPopup(addPhotoPopup);
-});
-
-function handleCardFormSubmit(evt) {
-  evt.preventDefault();
-  createNewCard.textContent = "Сохранение...";
-
-  addCardToServer(photoTitle.value, photoLink.value)
-    .then(res => {
-      elementsBlock.prepend(addCard(res));
-      closePopup(addPhotoPopup);
-      evt.target.reset();
-      createNewCard.classList.add('popup__button_disabled');
-      createNewCard.disabled = true;
-    })
-    .catch(function (err) {
-      console.log(`Ошибка ${err.status}`)
-    })
-    .finally(function () {
-      showTimeout(createNewCard)
-    });
+profilePopupCallback = data => {
+  profilePopup.setButtonLoadingStatus(true)
+  api.getUserData(data)
+  .then(res => {
+    userInfo.getUserData(res);
+    profilePopup.close();
+  })
+  .catch(err => {
+    console.log(err);
+  })
+  .finally(() => {
+    profilePopup.setBtnStatusSaving(false);
+  });
 }
-addPhotoForm.addEventListener('submit', handleCardFormSubmit);
+
+const profilePopup = new PopupWithForm(
+  popupEditProfile,
+  profilePopupCallback
+)
+
 
 
 enableValidation({

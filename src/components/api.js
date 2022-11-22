@@ -32,11 +32,11 @@ export default class Api {
     return this.checkPromise(res);
   }
 
-  async updateProfile(name, about) {
+  async updateProfile(data) {
       const res = await fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
       headers: this._headers,
-      body: { name: name, about: about }
+      body: { name: data.name, about: data.about }
     });
     return this.checkPromise(res);
   }

@@ -12,7 +12,7 @@ export default class Card {
     this._selector = selector;
 
     this.cardClick = cardClick;
-    this.cardDelete = cardDelete
+    this.cardDelete = cardDelete;
   }
 
   _getElement() {
@@ -94,7 +94,6 @@ export default class Card {
 
 /*
 index.js
-
 function createCard(data) {
   const card = new Card(data, userId, '.selector', {
     cardClick: data => popupImage.open(data)

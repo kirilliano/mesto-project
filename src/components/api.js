@@ -5,7 +5,7 @@ export default class Api {
     this._baseUrl = baseUrl;
     this._headers = {
         'Content-Type': 'application/json',
-        'authorization': token
+        authorization: token
     }
   }
 
@@ -84,6 +84,6 @@ export default class Api {
   }
 
   getData() {
-    Promise.all([this.getUserData(), this.getInitialCards()])
+   Promise.all([getUserData(), getInitialCards()])
   }
 }

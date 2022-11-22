@@ -18,23 +18,14 @@ import {
   profileEditButton, nameInput, jobInput, profileName, profileInfo, popupEditProfile,
   formEditProfile, saveNewProfile, config, profileAvatar, profileAvatarContainer,
   photoTitle, addPhotoButton, photoLink, addPhotoPopup, addPhotoForm, createNewCard,
-  openImagePopup, popupImage, imageCaption, setForValid
-} from './utils.js'
+  openImagePopup, popupImage, imageCaption, setFormValid
+} from '../src/components/utils.js'
 
 //получение данных
 const api = new Api(config)
 const userInfo = new UserInfo({
   profileName, profileInfo, profileAvatar
 })
-
-api
-  .getData()
-  .then(data => {
-    const [userData, cardsData] = data;
-    userInfo.setUserInfo(userData);
-    cards/**(константа из new Section) */.render(cardsData);
-  })
-  .catch(err => console.log(err))
 
 //Редактирование профиля
 //заполняет форму
@@ -44,7 +35,7 @@ const renderProfileValues = () => {
   jobInput.value = userInfo.about
 }
 
-profilePopupCallback = data => {
+const profilePopupCallback = data => {
   profilePopup.setButtonLoadingStatus(true)
   api.getUserData(data)
   .then(res => {
@@ -66,15 +57,41 @@ const profilePopup = new PopupWithForm(
 
 //попап с картинкой
 const imagePopup = new PopupWithImage('.popup__image')
-
+/*
 const createCard = data => {
-  const card = new Card(data, userInfo.userId, '.element__template',{
+  const card = new Card(data, userInfo.userId, '.element__template', {
     cardClick: data => popupImage.open(data),
     cardDelete: (id) => {api.deleteCard(id)}
   })
 }
+*/
 
 
+//Кирилл
+const createCard = data => {
+  const card = new Card(data, userInfo.userId, '.element__template', {
+    cardClick: data => popupImage.open(data),
+    cardDelete: (id) => {api.deleteCard(id)}
+  })
+  return card.generate();
+};
 
 
+api
+  .getData()
+  .then(data => {
+    const [userData, cardsData] = data;
+    userInfo.setUserInfo(userData);
 
+    const section = new Section({
+      data: cardsData,
+      renderer: (card) => {
+        const cardElement = createCard(card);
+        section.setItems(cardElement);
+      },
+    },
+    '.element__template'
+  );
+  section.render();
+  })
+  .catch(err => console.log(err))

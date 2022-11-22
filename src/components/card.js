@@ -29,8 +29,9 @@ export default class Card {
 
     this.cardImage = this._card.querySelector(".element__image");
     this.likeButton = this._card.querySelector('element__button');
-    this.deleteButton = this._card.querySelector('.element__button-delete')
-    this.likesCounter = this._card.querySelector('.element__likes-counter')
+    this.deleteButton = this._card.querySelector('.element__button-delete');
+    this.likesCounter = this._card.querySelector('.element__likes-counter');
+    this.cardName = this._card.querySelector('.element__title');
 
     this.cardImage.src = this._link;
     this.cardImage.alt = this._name;
@@ -52,14 +53,14 @@ export default class Card {
 
   _likesState() {
     if (this.likeButton.classList.contains('element__button_active')) {
-      likeButton.classList.toggle('element__button_active')
-      likesCount.textContent = parseInt(this.likesCounter.textContent) - 1;
+      this.likeButton.classList.toggle('element__button_active')
+      this.likesCounter.textContent = parseInt(this.likesCounter.textContent) - 1;
     } else {
-      likeButton.classList.toggle('element__button_active')
-      likesCount.textContent = parseInt(this.likesCounter.textContent) + 1;
+      this.likeButton.classList.toggle('element__button_active')
+      this.likesCounter.textContent = parseInt(this.likesCounter.textContent) + 1;
     }
 
-    if (this._likeMyId().length === 1) {
+    if (this._HasMyLike().length === 1) {
       this._like()
     }
   }

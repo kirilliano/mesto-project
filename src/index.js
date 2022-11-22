@@ -18,7 +18,7 @@ import {
   profileEditButton, nameInput, jobInput, profileName, profileInfo, popupEditProfile,
   formEditProfile, saveNewProfile, config, profileAvatar, profileAvatarContainer,
   photoTitle, addPhotoButton, photoLink, addPhotoPopup, addPhotoForm, createNewCard,
-  openImagePopup, popupImage, imageCaption
+  openImagePopup, popupImage, imageCaption, setForValid
 } from './utils.js'
 
 //получение данных
@@ -32,11 +32,17 @@ api
   .then(data => {
     const [userData, cardsData] = data;
     userInfo.setUserInfo(userData);
-    cards.render(cardsData);
+    cards/**(константа из new Section) */.render(cardsData);
   })
   .catch(err => console.log(err))
 
 //Редактирование профиля
+//заполняет форму
+const renderProfileValues = () => {
+  const userData = userInfo.getUserInfo();
+  nameInput.value = userData.name
+  jobInput.value = userInfo.about
+}
 
 profilePopupCallback = data => {
   profilePopup.setButtonLoadingStatus(true)
@@ -58,65 +64,17 @@ const profilePopup = new PopupWithForm(
   profilePopupCallback
 )
 
+//попап с картинкой
+const imagePopup = new PopupWithImage('.popup__image')
 
-
-enableValidation({
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input-error_visible'
-});
-
-//DOM для открытия картинки
-const openImagePopup = document.querySelector('.popup_open-image');
-const popupImage = document.querySelector('.popup__image');
-const imageCaption = document.querySelector('.popup__image-caption');
-
-//Открытие попапа с картинкой
-export function openImage(evt) {
-  const image = evt.target;
-  popupImage.setAttribute('src', image.src);
-  popupImage.setAttribute('alt', image.alt);
-  imageCaption.textContent = image.alt;
-
-  openPopup(openImagePopup);
+const createCard = data => {
+  const card = new Card(data, userInfo.userId, '.element__template',{
+    cardClick: data => popupImage.open(data),
+    cardDelete: (id) => {api.deleteCard(id)}
+  })
 }
 
-//Изменение аватара
-
-const popupChangeAvatar = document.querySelector('#popupChangeAvatar');
-const changeAvatarForm = popupChangeAvatar.querySelector('#changeAvatarForm');
-const avatarUrlInput = changeAvatarForm.querySelector('#avatar-url');
-const newAvatarSubmitButton = changeAvatarForm.querySelector('#changeAvatarSubmitButton');
-
-//Открытие попапа изменения аватара
-profileAvatarContainer.addEventListener('click', function () {
-  openPopup(popupChangeAvatar);
-});
-
-function handleNewAvatarSubmit(evt) {
-  evt.preventDefault();
-  newAvatarSubmitButton.textContent = "Сохранение...";
-  changeAvatar(avatarUrlInput.value)
-    .then(res => {
-      profileAvatar.src = res.avatar;
-      closePopup(popupChangeAvatar);
-    })
-    .catch(function (err) {
-      console.log(`Ошибка ${err.status}`)
-    })
-    .finally(function () {
-      setTimeout(showTimeout, 1000, newAvatarSubmitButton)
-    });
-}
-changeAvatarForm.addEventListener('submit', handleNewAvatarSubmit);
 
 
-export let userId;
-function initUserId(id) {
-  userId = id;
-}
 
 

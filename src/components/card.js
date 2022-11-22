@@ -1,6 +1,6 @@
 //Класс карточки
 export default class Card {
-  constructor({ data }, userId, selector, { cardClick }) {
+  constructor({ data }, userId, selector, { cardClick, cardDelete }) {
     this._name = data.name;
     this._link = data.link;
     this._likes = data.likes;
@@ -12,7 +12,7 @@ export default class Card {
     this._selector = selector;
 
     this.cardClick = cardClick;
-    this.cardLike = cardLike
+    this.cardDelete = cardDelete
   }
 
   _getElement() {
@@ -71,7 +71,7 @@ export default class Card {
     }
   }
 
-  _deleteCard() {
+  deleteCard() {
     this._card.remove()
   }
 
@@ -81,6 +81,7 @@ export default class Card {
     })
 
     this.deleteButton.addEventListener('click', () => {
+      this.cardDelete() // это из index
       this._deleteCard()
     })
 

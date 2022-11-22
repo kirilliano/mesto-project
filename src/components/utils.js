@@ -17,6 +17,14 @@ const createNewCard = addPhotoForm.querySelector('#createNewCard');
 const openImagePopup = document.querySelector('.popup_open-image');
 const popupImage = document.querySelector('.popup__image');
 const imageCaption = document.querySelector('.popup__image-caption');
+const setForValid = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__input-error_visible'
+};
 
 const config = {
   baseUrl: 'https://nomoreparties.co/v1/plus-cohort-16',
@@ -29,5 +37,5 @@ export {
   profileEditButton, nameInput, jobInput, profileName, profileInfo, popupEditProfile,
   formEditProfile, saveNewProfile, config, profileAvatar, profileAvatarContainer,
   photoTitle, addPhotoButton, photoLink, addPhotoPopup, addPhotoForm, createNewCard,
-  openImagePopup, popupImage, imageCaption
+  openImagePopup, popupImage, imageCaption, setForValid
 }

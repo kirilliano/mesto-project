@@ -14,44 +14,19 @@ import UserInfo from './components/UserInfo';
 
 
 //DOM для редактирование профиля
-const profileEditButton = document.querySelector('.profile__edit-button');
-const nameInput = document.querySelector('#username-field');
-const jobInput = document.querySelector('#userinfo-field');
-const profileName = document.querySelector('.profile__name');
-const profileInfo = document.querySelector('.profile__info');
-const popupEditProfile = document.querySelector('#popupEditProfile');
-const formEditProfile = popupEditProfile.querySelector('.popup__form');
-const saveNewProfile = popupEditProfile.querySelector('#saveNewProfile');
+import {
+  profileEditButton, nameInput, jobInput, profileName, profileInfo,
+  popupEditProfile, formEditProfile, saveNewProfile, config, profileAvatar,
+  profileAvatarContainer
+} from './utils.js'
 
-//Редактирование профиля
-profileEditButton.addEventListener('click', function () {
-  nameInput.value = profileName.textContent;
-  jobInput.value = profileInfo.textContent;
-  openPopup(popupEditProfile);
+const api = new Api(config)
+const userInfo = new UserInfo({
+  profileName, profileInfo, profileAvatar
 })
 
-function showTimeout(button) {
-  const message = 'Сохранить';
-  button.textContent = message;
-}
+//Редактирование профиля
 
-function handleProfileFormSubmit (evt) {
-    evt.preventDefault();
-    saveNewProfile.textContent = "Сохранение...";
-
-    updateProfile(nameInput.value, jobInput.value)
-    .then((res) => {
-      profileName.textContent = res.name;
-      profileInfo.textContent = res.about;
-      closePopup(popupEditProfile);
-    })
-    .catch(function(err) {
-      console.log(`Ошибка ${err.status}`)
-    })
-    .finally(function() {
-      setTimeout(showTimeout, 1000, saveNewProfile)
-    });
-}
 formEditProfile.addEventListener('submit', handleProfileFormSubmit);
 
 //Добавление фото через попап
@@ -67,24 +42,24 @@ addPhotoButton.addEventListener('click', function () {
   openPopup(addPhotoPopup);
 });
 
-function handleCardFormSubmit (evt) {
+function handleCardFormSubmit(evt) {
   evt.preventDefault();
   createNewCard.textContent = "Сохранение...";
 
   addCardToServer(photoTitle.value, photoLink.value)
-  .then(res => {
-    elementsBlock.prepend(addCard(res));
-    closePopup(addPhotoPopup);
-    evt.target.reset();
-    createNewCard.classList.add('popup__button_disabled');
-    createNewCard.disabled = true;
-  })
-  .catch(function(err) {
-    console.log(`Ошибка ${err.status}`)
-  })
-  .finally(function() {
-    showTimeout(createNewCard)
-  });
+    .then(res => {
+      elementsBlock.prepend(addCard(res));
+      closePopup(addPhotoPopup);
+      evt.target.reset();
+      createNewCard.classList.add('popup__button_disabled');
+      createNewCard.disabled = true;
+    })
+    .catch(function (err) {
+      console.log(`Ошибка ${err.status}`)
+    })
+    .finally(function () {
+      showTimeout(createNewCard)
+    });
 }
 addPhotoForm.addEventListener('submit', handleCardFormSubmit);
 
@@ -114,8 +89,6 @@ export function openImage(evt) {
 }
 
 //Изменение аватара
-const profileAvatarContainer = document.querySelector('.profile__avatar-container');
-export const profileAvatar = profileAvatarContainer.querySelector('.profile__avatar');
 
 const popupChangeAvatar = document.querySelector('#popupChangeAvatar');
 const changeAvatarForm = popupChangeAvatar.querySelector('#changeAvatarForm');
@@ -127,7 +100,7 @@ profileAvatarContainer.addEventListener('click', function () {
   openPopup(popupChangeAvatar);
 });
 
-function handleNewAvatarSubmit (evt) {
+function handleNewAvatarSubmit(evt) {
   evt.preventDefault();
   newAvatarSubmitButton.textContent = "Сохранение...";
   changeAvatar(avatarUrlInput.value)
@@ -135,10 +108,10 @@ function handleNewAvatarSubmit (evt) {
       profileAvatar.src = res.avatar;
       closePopup(popupChangeAvatar);
     })
-    .catch(function(err) {
+    .catch(function (err) {
       console.log(`Ошибка ${err.status}`)
     })
-    .finally(function() {
+    .finally(function () {
       setTimeout(showTimeout, 1000, newAvatarSubmitButton)
     });
 }
@@ -163,7 +136,7 @@ Promise.all([getUserData(), getInitialCards()])
       elementsBlock.append(addCard(card));
     });
   })
-  .catch(function(err) {
+  .catch(function (err) {
     console.log(`Ошибка ${err.status}`)
   })
 

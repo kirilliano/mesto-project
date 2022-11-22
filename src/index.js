@@ -20,10 +20,20 @@ import {
   profileAvatarContainer
 } from './utils.js'
 
+//получение данных
 const api = new Api(config)
 const userInfo = new UserInfo({
   profileName, profileInfo, profileAvatar
 })
+
+api
+  .getData()
+  .then(data => {
+    const [userData, cardsData] = data;
+    userInfo.setUserInfo(userData);
+    cards.render(cardsData);
+  })
+  .catch(err => console.log(err))
 
 //Редактирование профиля
 

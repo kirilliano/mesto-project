@@ -9,7 +9,6 @@
 //  }
 //создать объект config в utils
 
-//поставить асинки
 class Api {
   constructor(baseUrl, token) {
     this._baseUrl = baseUrl;

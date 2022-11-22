@@ -1,5 +1,5 @@
 //Класс карточки
-class Card {
+export default class Card {
   constructor({ data }, userId, selector, { cardClick }) {
     this._name = data.name;
     this._link = data.link;

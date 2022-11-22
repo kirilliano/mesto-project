@@ -1,4 +1,4 @@
-class UserInfo {
+export default class UserInfo {
   constructor({ profileNameSelector, profileInfoSelector, profileAvatarSelector }) {
     this._profileNameSelector = profileNameSelector;
     this._profileInfoSelector = profileInfoSelector;
@@ -23,3 +23,10 @@ class UserInfo {
     this._userId = data._id;
   }
 }
+
+/**index.js
+  const userInfo = new UserInfo({
+  userNameSelector,
+  userCaptionSelector,
+  userAvatarSelector
+}); */

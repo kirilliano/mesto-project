@@ -3,10 +3,15 @@
 //Инициализация JS-кода, добавление слушателей и другие важные участки
 
 import '../src/pages/index.css';
-import { enableValidation } from './components/FormValidator.js';
-import { openPopup, closePopup } from './components/utils.js';
-import { getUserData, getInitialCards, updateProfile, addCardToServer, changeAvatar } from './components/api.js';
-import { addCard, elementsBlock } from './components/card.js'
+import Popup from './components/Popup';
+import PopupWithForm from './components/PopupWithForm';
+import PopupWithImage from './components/PopupWithImage';
+import Api from './components/api';
+import Card from './components/card';
+import FormValidator from './components/FormValidator';
+import Section from './components/Section';
+import UserInfo from './components/UserInfo';
+
 
 //DOM для редактирование профиля
 const profileEditButton = document.querySelector('.profile__edit-button');

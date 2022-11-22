@@ -9,7 +9,7 @@
 //  }
 //создать объект config в utils
 
-class Api {
+export default class Api {
   constructor(baseUrl, token) {
     this._baseUrl = baseUrl;
     this._headers = {

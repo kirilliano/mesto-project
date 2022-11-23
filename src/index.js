@@ -60,7 +60,7 @@ const imagePopup = new PopupWithImage('.popup__image')
 
 //карточки
 function createCard (data) {
-  const card = new Card({data}, userInfo.userId, templateSelector, {
+  const card = new Card(data, userInfo.userId, templateSelector, {
     cardClick: data => popupImage.open(data),
     cardDelete: () => api.deleteCard(data._id)
   })
@@ -68,6 +68,7 @@ function createCard (data) {
 };
 
 const cards = new Section({
+  items: cardsData,
   renderer: item => {
     const card = createCard(item);
     const cardElement = card.generate();

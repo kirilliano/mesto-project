@@ -1,5 +1,6 @@
 export default class Section {
-  constructor({ renderer }, selector) {
+  constructor({ items, renderer }, selector) {
+    this.rendererItems = items
     this._renderer = renderer;
     this._container = document.querySelector(selector)
   }
@@ -14,19 +15,3 @@ export default class Section {
     console.log('no set errors')
   }
 }
-
-// index.js
-/*
-const cardContainer = new Section({
-  data: ссылка на объект из карточек,
-  renderer: (item) => {
-    const card = createCard(item)
-
-    const cardElement = card.generate();
-
-    cardContainer.setItems(cardElement);
-  },
-},
-  '.cardContainerSelector'
-);
-*/

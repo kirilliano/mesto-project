@@ -1,6 +1,7 @@
 //Класс карточки
 export default class Card {
-  constructor({ data }, userId, selector, { cardClick, cardDelete }) {
+  constructor(data, userId, selector, { cardClick, cardDelete }) {
+    console.log(data)
     this._name = data.name;
     this._link = data.link;
     this._likes = data.likes;

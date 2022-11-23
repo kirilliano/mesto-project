@@ -94,8 +94,8 @@ setLike() {
       this.cardClick({ name: this._name, link: this._link })
     })
 
-    this.likeButton.addEventListener('click', () =>
-      this._cardLike(this._hasMyLike(), this._id));
+    //this.likeButton.addEventListener('click', () =>
+     // this._cardLike(this._hasMyLike(), this._id));
   }
 
   generate() {
@@ -107,7 +107,7 @@ setLike() {
 
     this._delBtnState();
     this._setEventListeners();
-    this.setLike();
+    //this.setLike();
 
     return this._card;
   }

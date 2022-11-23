@@ -67,7 +67,7 @@ function createCard(data) {
   return card;
 };
 
-let card
+let cards
 
 api
   .getData()

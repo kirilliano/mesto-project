@@ -59,12 +59,20 @@ const profilePopup = new PopupWithForm(
 const imagePopup = new PopupWithImage('.popup__image')
 
 //карточки
-function createCard(data) {
+const createCard = (data) => {
   const card = new Card(data, userInfo.userId, templateSelector, {
     cardClick: data => popupImage.open(data),
-    cardDelete: () => api.deleteCard(data._id)
+
+    cardDelete: (cardElement, cardID) => {
+    api
+    .deleteCard(cardID)
+    .then(() => cardElement.remove())
+    .catch(err => console.log(err))
+    },
+
+    cardLike: {}
   })
-  return card;
+  return card.generate();
 };
 
 let cards
@@ -76,12 +84,12 @@ api
     cards = new Section({
       data: cardsData,
       renderer: item => {
-        const card = createCard(item);
-        const cardElement = card.generate();
+
+        const cardElement = createCard(item);
         cards.setItems(cardElement)
       }
     },
-      cardsContainer)
+      cardsContainer);
     userInfo.setUserInfo(userData);
     cards.render();
   })

@@ -11,7 +11,7 @@ export default class Section {
   }
 
   setItems(cardElement) {
-    this._container.prepend(cardElement);
+    this._container.append(cardElement);
     console.log('no set errors')
   }
 }

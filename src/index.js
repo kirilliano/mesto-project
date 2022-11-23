@@ -29,7 +29,7 @@ const userInfo = new UserInfo(
 //Редактирование профиля
 //заполняет форму
 const renderProfileValues = () => {
-  const userData = userInfo.getUserInfo();
+  const userData = userInfo.getUserData();
   nameInput.value = userData.name
   jobInput.value = userInfo.about
 }
@@ -59,7 +59,7 @@ const profilePopup = new PopupWithForm(
 const imagePopup = new PopupWithImage('.popup__image')
 
 //карточки
-function createCard (data) {
+function createCard(data) {
   const card = new Card(data, userInfo.userId, templateSelector, {
     cardClick: data => popupImage.open(data),
     cardDelete: () => api.deleteCard(data._id)
@@ -67,28 +67,30 @@ function createCard (data) {
   return card;
 };
 
-const cards = new Section({
-  data: api.getInitialCards()
-  ,
-  renderer: item => {
-    const card = createCard(item);
-    const cardElement = card.generate();
-    cards.setItems(cardElement)
-  }
-},
-  cardsContainer)
-
-
-
+let card
 
 api
   .getData()
   .then(data => {
     const [userData, cardsData] = data;
+    cards = new Section({
+      data: cardsData,
+      renderer: item => {
+        const card = createCard(item);
+        const cardElement = card.generate();
+        cards.setItems(cardElement)
+      }
+    },
+      cardsContainer)
     userInfo.setUserInfo(userData);
-    cards.render(cardsData);
+    cards.render();
   })
   .catch(err => console.log(err));
+
+  profileEditButton.addEventListener('click', () => {
+    renderProfileValues();
+    profilePopup.open();
+  });
 
 
 

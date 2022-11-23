@@ -4,7 +4,7 @@ export default class PopupWithForm extends Popup {
   constructor(selector, callbackSubmitForm) {
     super(selector);
     this.callbackSubmitForm = callbackSubmitForm;
-    this.popupForm = super._popup.querySelector('.popup__form')
+    this.popupForm = this._popup.querySelector('.popup__form')
     this.saveButton = this.popupForm.querySelector('.popup__button')
     this.originalText = this.saveButton.value
   }
@@ -34,7 +34,8 @@ export default class PopupWithForm extends Popup {
 
   close() {
     super.close();
-    this.popupForm.reset()
+    this.popupForm.reset();
+    this._removeEventListeners()
   }
 
   setButtonLoadingStatus(isLoading) {

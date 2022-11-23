@@ -1,8 +1,8 @@
 export default class UserInfo {
-  constructor({ profileNameSelector, profileInfoSelector, profileAvatarSelector }) {
+  constructor(profileNameSelector, profileInfoSelector, profileAvatarSelector) {
     this._profileNameSelector = profileNameSelector;
     this._profileInfoSelector = profileInfoSelector;
-    this._profileAvatarSelector = profileAvatarSelector
+    this._profileAvatarSelector = profileAvatarSelector;
 
     this._profileName = document.querySelector(this._profileNameSelector);
     this._profileInfo = document.querySelector(this._profileInfoSelector);
@@ -16,17 +16,10 @@ export default class UserInfo {
     }
   }
 
-  setUserInfo({ data }) {
+  setUserInfo(data) {
     this._profileName.textContent = data.name;
     this._profileInfo.textContent = data.about;
     this._profileAva.src = data.avatar;
     this.userId = data._id;
   }
 }
-
-/**index.js
-  const userInfo = new UserInfo({
-  userNameSelector,
-  userCaptionSelector,
-  userAvatarSelector
-}); */

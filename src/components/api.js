@@ -1,39 +1,35 @@
 //Функция для шаблона запроса у сервера
 
 export default class Api {
-  constructor({baseUrl, token}) {
+  constructor({ baseUrl, headers }) {
     this._baseUrl = baseUrl;
-    this._headers = {
-        'Content-Type': 'application/json',
-        authorization: token
+    this._headers = headers;
     }
-  }
+
 
   checkPromise(res) {
-      if (res.ok) {
-        return res.json()
-      }
-      return Promise.reject(res.status);
+    if (res.ok) {
+      return res.json()
     }
+    return Promise.reject(res.status);
+  }
 
   async getInitialCards() {
     const res = await fetch(`${this._baseUrl}/cards`, {
-      method: 'GET',
       headers: this._headers
     });
     return this.checkPromise(res);
   }
 
   async getUserData() {
-      const res = await fetch(`${this._baseUrl}/users/me`, {
-      method: 'GET',
+    const res = await fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers
     });
     return this.checkPromise(res);
   }
 
   async updateProfile(data) {
-      const res = await fetch(`${this._baseUrl}/users/me`, {
+    const res = await fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
       headers: this._headers,
       body: { name: data.name, about: data.about }
@@ -51,7 +47,7 @@ export default class Api {
   }
 
   async activateLike(cardId) {
-      const res = await fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+    const res = await fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
       method: 'PUT',
       headers: this._headers,
     });
@@ -59,7 +55,7 @@ export default class Api {
   }
 
   async disactivateLike(cardId) {
-      const res = await fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+    const res = await fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
       method: 'DELETE',
       headers: this._headers
     });
@@ -67,7 +63,7 @@ export default class Api {
   }
 
   async deleteCard(cardId) {
-      const res = await fetch(`${this._baseUrl}/cards/${cardId}`, {
+    const res = await fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: 'DELETE',
       headers: this._headers
     });
@@ -75,7 +71,7 @@ export default class Api {
   }
 
   async changeAvatar(link) {
-      const res = await fetch(`${this._baseUrl}/cards/${id}`, {
+    const res = await fetch(`${this._baseUrl}/cards/${id}`, {
       method: 'PATCH',
       headers: this._headers,
       body: { avatar: link }
@@ -84,6 +80,6 @@ export default class Api {
   }
 
   getData() {
-   Promise.all([getUserData(), getInitialCards()])
+    return Promise.all([this.getUserData(), this.getInitialCards()])
   }
 }

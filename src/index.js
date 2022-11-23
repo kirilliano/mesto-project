@@ -3,7 +3,6 @@
 //Инициализация JS-кода, добавление слушателей и другие важные участки
 
 import '../src/pages/index.css';
-import Popup from './components/Popup';
 import PopupWithForm from './components/PopupWithForm';
 import PopupWithImage from './components/PopupWithImage';
 import Api from './components/api';
@@ -16,16 +15,16 @@ import UserInfo from './components/UserInfo';
 //DOM для редактирование профиля
 import {
   profileEditButton, nameInput, jobInput, profileName, profileInfo, popupEditProfile,
-  formEditProfile, saveNewProfile, config, profileAvatar, profileAvatarContainer,
-  photoTitle, addPhotoButton, photoLink, addPhotoPopup, addPhotoForm, createNewCard,
-  openImagePopup, popupImage, imageCaption, setFormValid
+  config, profileAvatar, profileAvatarContainer, popupImage, templateSelector,
+  cardsContainer
 } from '../src/components/utils.js'
 
 //получение данных
 const api = new Api(config)
-const userInfo = new UserInfo({
+
+const userInfo = new UserInfo(
   profileName, profileInfo, profileAvatar
-})
+)
 
 //Редактирование профиля
 //заполняет форму
@@ -37,17 +36,18 @@ const renderProfileValues = () => {
 
 const profilePopupCallback = data => {
   profilePopup.setButtonLoadingStatus(true)
-  api.getUserData(data)
-  .then(res => {
-    userInfo.getUserData(res);
-    profilePopup.close();
-  })
-  .catch(err => {
-    console.log(err);
-  })
-  .finally(() => {
-    profilePopup.setBtnStatusSaving(false);
-  });
+  api
+    .getUserData(data)
+    .then(res => {
+      userInfo.getUserData(res);
+      profilePopup.close();
+    })
+    .catch(err => {
+      console.log(err);
+    })
+    .finally(() => {
+      profilePopup.setButtonLoadingStatus(false);
+    });
 }
 
 const profilePopup = new PopupWithForm(
@@ -57,41 +57,33 @@ const profilePopup = new PopupWithForm(
 
 //попап с картинкой
 const imagePopup = new PopupWithImage('.popup__image')
-/*
-const createCard = data => {
-  const card = new Card(data, userInfo.userId, '.element__template', {
-    cardClick: data => popupImage.open(data),
-    cardDelete: (id) => {api.deleteCard(id)}
-  })
-}
-*/
 
-
-//Кирилл
-const createCard = data => {
-  const card = new Card(data, userInfo.userId, '.element__template', {
+//карточки
+function createCard (data) {
+  const card = new Card({data}, userInfo.userId, templateSelector, {
     cardClick: data => popupImage.open(data),
-    cardDelete: (id) => {api.deleteCard(id)}
+    cardDelete: () => api.deleteCard(data._id)
   })
-  return card.generate();
+  return card;
 };
 
+const cards = new Section({
+  renderer: item => {
+    const card = createCard(item);
+    const cardElement = card.generate();
+    cards.setItems(cardElement)
+  }
+},
+  cardsContainer)
 
 api
   .getData()
   .then(data => {
     const [userData, cardsData] = data;
     userInfo.setUserInfo(userData);
-
-    const section = new Section({
-      data: cardsData,
-      renderer: (card) => {
-        const cardElement = createCard(card);
-        section.setItems(cardElement);
-      },
-    },
-    '.element__template'
-  );
-  section.render();
+    cards.render(cardsData);
   })
-  .catch(err => console.log(err))
+  .catch(err => console.log(err));
+
+
+

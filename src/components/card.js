@@ -24,7 +24,7 @@ export default class Card {
     return cardElement;
   }
 
-  _generate() {
+  generate() {
     this._card = this._getElement();
 
     this.cardImage = this._card.querySelector(".element__image");
@@ -42,7 +42,7 @@ export default class Card {
     return this._card;
   }
 
-  _like() {
+  /*_like() {
     this.likeButton.classList.add("element__button_active")
     this._setEventListeners()
   }
@@ -63,7 +63,7 @@ export default class Card {
     if (this._HasMyLike().length === 1) {
       this._like()
     }
-  }
+  }*/
 
   _delBtnState() {
     if (this._ownerId !== this._userId) {
@@ -76,9 +76,9 @@ export default class Card {
   }
 
   _setEventListeners() {
-    this.likeButton.addEventListener('click', () => {
+    /*this.likeButton.addEventListener('click', () => {
       this._like()
-    })
+    })*/
 
     this.deleteButton.addEventListener('click', () => {
       this.cardDelete() // это из index
@@ -90,13 +90,3 @@ export default class Card {
     })
   }
 }
-
-
-/*
-index.js
-function createCard(data) {
-  const card = new Card(data, userId, '.selector', {
-    cardClick: data => popupImage.open(data)
-  })
-}
-*/

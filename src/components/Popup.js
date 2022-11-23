@@ -1,8 +1,9 @@
 export default class Popup {
   constructor(selector) {
+    this._selector = selector;
     this._popup = document.querySelector(selector);
-    this.popups = document.querySelectorAll('.popup');
-    this._handlePressClick = this._handlePressClick.bind(this)
+    this._handleCloseClick = this._handleCloseClick.bind(this);
+    this._handlePressEsc = this._handlePressEsc.bind(this)
   }
 
   open() {
@@ -15,7 +16,7 @@ export default class Popup {
     this._removeEventListeners();
   }
 
-  _handlePressEsc = (evt) => {
+  _handlePressEsc (evt) {
     evt.preventDefault()
     if (evt.key === "Escape") {
       this.close();

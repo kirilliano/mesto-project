@@ -68,7 +68,8 @@ function createCard (data) {
 };
 
 const cards = new Section({
-  items: cardsData,
+  data: api.getInitialCards()
+  ,
   renderer: item => {
     const card = createCard(item);
     const cardElement = card.generate();
@@ -76,6 +77,9 @@ const cards = new Section({
   }
 },
   cardsContainer)
+
+
+
 
 api
   .getData()

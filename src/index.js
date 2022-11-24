@@ -26,7 +26,7 @@ const userInfo = new UserInfo(
 )
 ///////////////////////Попапы////////////////
 //Редактирование профиля
-const renderProfileValues = () => {
+const enderProfileValues = () => {
   const userData = userInfo.getUserInfo();
   nameInput.value = userData.name
   jobInput.value = userData.about
@@ -63,7 +63,7 @@ const addCardCallback = data => {
   api
     .addCardToServer(data)
     .then(res => {
-      cards.setItems(res);
+      cards.setAddedItems(createCard(res));
       popupAddCard.close();
     })
     .catch(err => {

@@ -92,10 +92,27 @@ const createCard = (data) => {
         .catch(err => console.log(err))
     },
 
-    cardLike: {}
+    cardLike: (hasMyLike, cardID) => {
+      if (hasMyLike) {
+        api
+          .disactivateLike(cardID)
+          .then(data => {
+            card.setLike(data);
+          })
+          .catch(err => console.log(err));
+      } else {
+        api
+          .activateLike(cardID)
+          .then(data => {
+            card.setLike(data);
+          })
+          .catch(err => console.log(err));
+      }
+    }
+
   })
   return card.generate();
-};
+}
 
 let cards
 

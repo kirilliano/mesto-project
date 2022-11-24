@@ -10,9 +10,6 @@ const profileAvatar = '.profile__avatar';
 const templateSelector = '.element__template';
 const cardsContainer = '.elements';
 
-//Константы для фото
-const popupImage = document.querySelector('.popup__image');
-
 const setFormValid = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
@@ -32,6 +29,6 @@ const config = {
 
 export {
   profileEditButton, nameInput, jobInput, profileName, profileInfo, popupEditProfile,
-  config, profileAvatar, profileAvatarContainer,popupImage, setFormValid, templateSelector,
+  config, profileAvatar, profileAvatarContainer, setFormValid, templateSelector,
   cardsContainer
 }

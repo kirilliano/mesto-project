@@ -15,7 +15,7 @@ import UserInfo from './components/UserInfo';
 //DOM для редактирование профиля
 import {
   profileEditButton, nameInput, jobInput, profileName, profileInfo, popupEditProfile,
-  config, profileAvatar, profileAvatarContainer, popupImage, templateSelector,
+  config, profileAvatar, profileAvatarContainer, templateSelector,
   cardsContainer
 } from '../src/components/utils.js'
 

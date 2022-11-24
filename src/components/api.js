@@ -4,7 +4,7 @@ export default class Api {
   constructor({ baseUrl, headers }) {
     this._baseUrl = baseUrl;
     this._headers = headers;
-    }
+  }
 
 
   checkPromise(res) {
@@ -32,7 +32,7 @@ export default class Api {
     const res = await fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
       headers: this._headers,
-      body: { name: data.name, about: data.about }
+      body: JSON.stringify({ name: data.name, about: data.about })
     });
     return this.checkPromise(res);
   }
@@ -41,7 +41,7 @@ export default class Api {
     const res = await fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
       headers: this._headers,
-      body: { name: name, link: link }
+      body: JSON.stringify({ name: name, link: link })
     });
     return this.checkPromise(res);
   }
@@ -74,7 +74,7 @@ export default class Api {
     const res = await fetch(`${this._baseUrl}/cards/${id}`, {
       method: 'PATCH',
       headers: this._headers,
-      body: { avatar: link }
+      body: JSON.stringify({ avatar: link })
     });
     return this.checkPromise(res);
   }

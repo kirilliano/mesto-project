@@ -29,17 +29,17 @@ const userInfo = new UserInfo(
 //Редактирование профиля
 //заполняет форму
 const renderProfileValues = () => {
-  const userData = userInfo.getUserData();
+  const userData = userInfo.getUserInfo();
   nameInput.value = userData.name
-  jobInput.value = userInfo.about
+  jobInput.value = userData.about
 }
 
 const profilePopupCallback = data => {
   profilePopup.setButtonLoadingStatus(true)
   api
-    .getUserData(data)
+    .updateProfile(data)
     .then(res => {
-      userInfo.getUserData(res);
+      userInfo.setUserInfo(res);
       profilePopup.close();
     })
     .catch(err => {
@@ -61,7 +61,7 @@ const imagePopup = new PopupWithImage('.popup__image')
 //карточки
 const createCard = (data) => {
   const card = new Card(data, userInfo.userId, templateSelector, {
-    cardClick: data => popupImage.open(data),
+    cardClick: data => imagePopup.open(data),
 
     cardDelete: (cardElement, cardID) => {
     api

@@ -7,11 +7,9 @@ export default class Section {
 
   render() {
     this._renderedItems.forEach(item => this._renderer(item))
-    console.log('no ren errors')
   }
 
   setItems(cardElement) {
     this._container.append(cardElement);
-    console.log('no set errors')
   }
 }

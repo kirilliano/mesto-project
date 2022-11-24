@@ -32,7 +32,7 @@ export default class Api {
     const res = await fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
       headers: this._headers,
-      body: JSON.stringify({ name: data.name, about: data.about })
+      body: JSON.stringify({ name: data.UserName, about: data.UserInfo })
     });
     return this.checkPromise(res);
   }

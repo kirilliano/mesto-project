@@ -36,6 +36,7 @@ const renderProfileValues = () => {
 
 const profilePopupCallback = data => {
   profilePopup.setButtonLoadingStatus(true)
+  console.log(data)
   api
     .updateProfile(data)
     .then(res => {

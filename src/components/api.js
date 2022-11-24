@@ -37,11 +37,11 @@ export default class Api {
     return this.checkPromise(res);
   }
 
-  async addCardToServer(name, link) {
+  async addCardToServer(data) {
     const res = await fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
       headers: this._headers,
-      body: JSON.stringify({ name: name, link: link })
+      body: JSON.stringify({ name: data.PhotoTitle, link: data.PhotoLink })
     });
     return this.checkPromise(res);
   }

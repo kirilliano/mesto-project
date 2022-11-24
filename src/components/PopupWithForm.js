@@ -49,4 +49,3 @@ export default class PopupWithForm extends Popup {
   }
 }
 
-/** const profilePopup = new PopupWithForm('.popupProfile', callbackForm: ....) */

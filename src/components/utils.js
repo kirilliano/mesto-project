@@ -1,5 +1,6 @@
 //Константы для профиля
 const profileEditButton = document.querySelector('.profile__edit-button');
+const buttonAdd = document.querySelector('.profile__add-button')
 const nameInput = document.querySelector('#username-field');
 const jobInput = document.querySelector('#userinfo-field');
 const profileName = '.profile__name';
@@ -9,9 +10,10 @@ const profileAvatarContainer = document.querySelector('.profile__avatar-containe
 const profileAvatar = '.profile__avatar';
 const templateSelector = '.element__template';
 const cardsContainer = '.elements';
+const popups = document.querySelectorAll('.popup__form')
+const popupAddCardSelector = '#popupAddPhoto'
 
 const setFormValid = {
-  formSelector: '.popup__form',
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__button',
   inactiveButtonClass: 'popup__button_disabled',
@@ -28,7 +30,7 @@ const config = {
 }
 
 export {
-  profileEditButton, nameInput, jobInput, profileName, profileInfo, popupEditProfile,
+  profileEditButton, buttonAdd ,nameInput, jobInput, profileName, profileInfo, popupEditProfile,
   config, profileAvatar, profileAvatarContainer, setFormValid, templateSelector,
-  cardsContainer
+  cardsContainer, popups, popupAddCardSelector
 }

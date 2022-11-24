@@ -14,14 +14,6 @@ export default class Card {
     this._cardClick = cardClick;
     this._cardDelete = cardDelete;
     this._cardLike = cardLike;
-
-    this._card = this._getElement();
-
-    this.cardImage = this._card.querySelector(".element__image");
-    this.likeButton = this._card.querySelector('element__button');
-    this.deleteButton = this._card.querySelector('.element__button-delete');
-    this.likesCounter = this._card.querySelector('.element__likes-counter');
-    this.cardName = this._card.querySelector('.element__title');
   }
 
   _getElement() {
@@ -90,7 +82,7 @@ setLike() {
     })
 
     this.cardImage.addEventListener('click', () => {
-      this.cardClick({ name: this._name, link: this._link })
+      this._cardClick({ name: this._name, link: this._link })
     })
 
     //this.likeButton.addEventListener('click', () =>
@@ -98,7 +90,13 @@ setLike() {
   }
 
   generate() {
+    this._card = this._getElement();
 
+    this.cardImage = this._card.querySelector(".element__image");
+    this.likeButton = this._card.querySelector('element__button');
+    this.deleteButton = this._card.querySelector('.element__button-delete');
+    this.likesCounter = this._card.querySelector('.element__likes-counter');
+    this.cardName = this._card.querySelector('.element__title');
 
     this.cardImage.src = this._link;
     this.cardImage.alt = this._name;

@@ -57,13 +57,12 @@ const profilePopup = new PopupWithForm(
 )
 
 //попап с картинкой
-const imagePopup = new PopupWithImage('.popup__image')
+const imagePopup = new PopupWithImage('.popup_open-image')
 
 //карточки
 const createCard = (data) => {
   const card = new Card(data, userInfo.userId, templateSelector, {
     cardClick: data => imagePopup.open(data),
-
     cardDelete: (cardElement, cardID) => {
     api
     .deleteCard(cardID)

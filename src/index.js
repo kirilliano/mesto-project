@@ -26,7 +26,7 @@ const userInfo = new UserInfo(
 )
 ///////////////////////Попапы////////////////
 //Редактирование профиля
-const enderProfileValues = () => {
+const renderProfileValues = () => {
   const userData = userInfo.getUserInfo();
   nameInput.value = userData.name
   jobInput.value = userData.about

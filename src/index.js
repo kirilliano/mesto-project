@@ -14,8 +14,8 @@ import UserInfo from './components/UserInfo';
 //DOM для редактирование профиля
 import {
   profileEditButton, buttonAdd,nameInput, jobInput, profileName, profileInfo, popupEditProfile,
-  config, profileAvatar, profileAvatarContainer, templateSelector,
-  cardsContainer, setFormValid, popups, popupAddCardSelector
+  config, profileAvatar, templateSelector, avaEditButton,
+  cardsContainer, setFormValid, popups, popupAddCardSelector, popupEditAva
 } from '../src/components/utils.js'
 
 //получение данных
@@ -55,6 +55,28 @@ const profilePopup = new PopupWithForm(
 
 //попап с картинкой
 const imagePopup = new PopupWithImage('.popup_open-image')
+
+//попап аватара
+const avatarPopupCallback = data => {
+  avatarPopup.setButtonLoadingStatus(true)
+  api
+    .changeAvatar(data)
+    .then(res => {
+      userInfo.setUserInfo(res);
+      avatarPopup.close()
+    })
+    .catch(err => {
+      console.log(err)
+    })
+    .finally(() => {
+      avatarPopup.setButtonLoadingStatus(false)
+    })
+}
+
+const avatarPopup = new PopupWithForm(
+  popupEditAva,
+  avatarPopupCallback
+)
 
 //добавление карточки
 const addCardCallback = data => {
@@ -154,7 +176,6 @@ buttonAdd.addEventListener('click', () => {
   popupAddCard.open()
 })
 
-
-
-
-
+avaEditButton.addEventListener('click', () => {
+  avatarPopup.open()
+})

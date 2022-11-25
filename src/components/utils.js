@@ -1,12 +1,13 @@
 //Константы для профиля
 const profileEditButton = document.querySelector('.profile__edit-button');
+const avaEditButton = document.querySelector('.profile__avatar-container')
 const buttonAdd = document.querySelector('.profile__add-button')
 const nameInput = document.querySelector('#username-field');
 const jobInput = document.querySelector('#userinfo-field');
 const profileName = '.profile__name';
 const profileInfo = '.profile__info';
 const popupEditProfile = '#popupEditProfile';
-const profileAvatarContainer = document.querySelector('.profile__avatar-container');
+const popupEditAva = '#popupChangeAvatar';
 const profileAvatar = '.profile__avatar';
 const templateSelector = '.element__template';
 const cardsContainer = '.elements';
@@ -31,6 +32,6 @@ const config = {
 
 export {
   profileEditButton, buttonAdd ,nameInput, jobInput, profileName, profileInfo, popupEditProfile,
-  config, profileAvatar, profileAvatarContainer, setFormValid, templateSelector,
-  cardsContainer, popups, popupAddCardSelector
+  config, profileAvatar, setFormValid, templateSelector, avaEditButton,
+  cardsContainer, popups, popupAddCardSelector, popupEditAva
 }

@@ -71,10 +71,10 @@ export default class Api {
   }
 
   async changeAvatar(link) {
-    const res = await fetch(`${this._baseUrl}/cards/${id}`, {
+    const res = await fetch(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
       headers: this._headers,
-      body: JSON.stringify({ avatar: link })
+      body: JSON.stringify({ avatar: link.avatarUrl })
     });
     return this.checkPromise(res);
   }

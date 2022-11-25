@@ -80,7 +80,6 @@ const avatarPopup = new PopupWithForm(
 
 //добавление карточки
 const addCardCallback = data => {
-  console.log(data)
   popupAddCard.setButtonLoadingStatus(true);
   api
     .addCardToServer(data)

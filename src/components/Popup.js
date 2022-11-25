@@ -23,8 +23,9 @@ export default class Popup {
   };
 
   _handleCloseClick(evt) {
-    if (evt.target.classList.contains('popup_opened') ||
-      evt.target.classList.contains('popup__close-button')
+    if (evt.target.classList.contains('popup__container') ||
+      evt.target.classList.contains('popup__close-button') ||
+      evt.target.classList.contains('popup_open-image')
     ) {
       this.close()
     }

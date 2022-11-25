@@ -17,7 +17,6 @@ export default class Popup {
   }
 
   _handlePressEsc(evt) {
-    //evt.preventDefault()
     if (evt.key === "Escape") {
       this.close();
     }

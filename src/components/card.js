@@ -34,6 +34,7 @@ export default class Card {
     return cardElement;
   }
 
+  //счетчик лайков и их состояние
   setLike(obj) {
     this._likes = obj.likes;
     this.likesCounter.textContent = this._likes.length;
@@ -44,10 +45,12 @@ export default class Card {
     }
   }
 
+  //идентификация лайка
   _hasMyLike() {
     return this._likes.some((like) => like._id === this._userId);
   }
 
+  //идентификация карточки и состояние кнопки удаления
   _delBtnState() {
     if (this._ownerId !== this._userId) {
       this.deleteButton.classList.add("element__button-delete_disactive");

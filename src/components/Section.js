@@ -13,6 +13,9 @@ export default class Section {
     this._container.append(cardElement);
   }
 
+  //метод, добавляющий в начало страницы карточки
+  //сразу после создания
+
   setAddedItems(cardElement) {
     this._container.prepend(cardElement);
   }

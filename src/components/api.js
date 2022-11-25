@@ -6,7 +6,6 @@ export default class Api {
     this._headers = headers;
   }
 
-
   checkPromise(res) {
     if (res.ok) {
       return res.json()

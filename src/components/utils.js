@@ -1,34 +1,41 @@
-'use strict';
+//Константы для профиля
+const profileEditButton = document.querySelector('.profile__edit-button');
+const avaEditButton = document.querySelector('.profile__avatar-container')
+const buttonAdd = document.querySelector('.profile__add-button')
+const nameInput = document.querySelector('#username-field');
+const jobInput = document.querySelector('#userinfo-field');
+const profileName = '.profile__name';
+const profileInfo = '.profile__info';
+const popupEditProfile = '#popupEditProfile';
+const popupEditAva = '#popupChangeAvatar';
+const profileAvatar = '.profile__avatar';
+const templateSelector = '.element__template';
+const cardsContainer = '.elements';
+const popups = document.querySelectorAll('.popup__form')
+const popupAddCardSelector = '#popupAddPhoto'
 
-//Утилитарные функции, которые используются в работе сразу нескольких других функций
-const popups = document.querySelectorAll('.popup');
+const formEditProfile = document.querySelector('.form-edit-profile')
+const formAddCard = document.querySelector('.form-add-photo')
+const formEditAva = document.querySelector('.form-change-ava')
 
-function escapeHandler(evt) {
-  if (evt.key === 'Escape') {
-    const openedPopup = document.querySelector('.popup_opened');
-    closePopup(openedPopup);
+const setFormValid = {
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__input-error_visible'
+};
+
+const config = {
+  baseUrl: 'https://nomoreparties.co/v1/plus-cohort-16',
+  headers: {
+    'authorization': 'bb462bb4-22b0-43a6-bcbf-709edef952c3',
+    'Content-Type': 'application/json'
   }
 }
 
-//Функция открытия попапа
-export function openPopup(popupObj) {
-  popupObj.classList.add('popup_opened');
-  document.addEventListener('keydown', escapeHandler);
+export {
+  profileEditButton, buttonAdd ,nameInput, jobInput, profileName, profileInfo, popupEditProfile,
+  config, profileAvatar, setFormValid, templateSelector, avaEditButton,
+  cardsContainer, popups, popupAddCardSelector, popupEditAva, formEditProfile, formAddCard, formEditAva
 }
-
-//Функция закрытия попапа
-export function closePopup(popupObj) {
-  popupObj.classList.remove('popup_opened');
-  document.removeEventListener('keydown', escapeHandler);
-}
-
-popups.forEach((popup) => {
-  popup.addEventListener('mousedown', (evt) => {
-      if (evt.target.classList.contains('popup__container') || evt.target.classList.contains('popup_open-image')) {
-          closePopup(popup)
-      }
-      if (evt.target.classList.contains('popup__close-button')) {
-        closePopup(popup)
-      }
-  })
-})

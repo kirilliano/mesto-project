@@ -1,67 +1,84 @@
-const config = {
-  baseUrl: 'https://nomoreparties.co/v1/plus-cohort-16',
-  headers: {
-    authorization: 'bb462bb4-22b0-43a6-bcbf-709edef952c3',
-    'Content-Type': 'application/json'
-  }
-}
-
 //Функция для шаблона запроса у сервера
-function fetchServerData (path, method = "GET", body = null) {
-  const fetchSettings = {
-    method: method,
-    headers: config.headers
+
+export default class Api {
+  constructor({ baseUrl, headers }) {
+    this._baseUrl = baseUrl;
+    this._headers = headers;
   }
 
-  if (body) {
-    fetchSettings.body = JSON.stringify(body)
-  }
-
-  return fetch(`${config.baseUrl}/${path}`, fetchSettings)
-  .then(res => {
+  checkPromise(res) {
     if (res.ok) {
       return res.json()
     }
     return Promise.reject(res.status);
-  });
-}
+  }
 
-//Получение информации о карточках на сервере
-export function getInitialCards() {
-  return fetchServerData("cards")
-}
+  async getInitialCards() {
+    const res = await fetch(`${this._baseUrl}/cards`, {
+      headers: this._headers
+    });
+    return this.checkPromise(res);
+  }
 
-//Получение информации о пользователе с сервера
-export function getUserData() {
-  return fetchServerData("users/me")
-}
+  async getUserData() {
+    const res = await fetch(`${this._baseUrl}/users/me`, {
+      headers: this._headers
+    });
+    return this.checkPromise(res);
+  }
 
-//Запрос на обновление информации о пользователе на сервере
-export function updateProfile(name, about) {
-  return fetchServerData("users/me", "PATCH", { name: name, about: about });
-}
+  async updateProfile(data) {
+    const res = await fetch(`${this._baseUrl}/users/me`, {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify({ name: data.UserName, about: data.UserInfo })
+    });
+    return this.checkPromise(res);
+  }
 
-//Добавление новой карточки на сервер
-export function addCardToServer(name, link) {
-  return fetchServerData("cards", "POST", { name: name, link: link });
-}
+  async addCardToServer(data) {
+    const res = await fetch(`${this._baseUrl}/cards`, {
+      method: 'POST',
+      headers: this._headers,
+      body: JSON.stringify({ name: data.PhotoTitle, link: data.PhotoLink })
+    });
+    return this.checkPromise(res);
+  }
 
-//Зафиксировать на сервере активный лайк
-export function activateLike(cardId) {
-  return fetchServerData(`cards/likes/${cardId}`, 'PUT');
-}
+  async activateLike(cardId) {
+    const res = await fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+      method: 'PUT',
+      headers: this._headers,
+    });
+    return this.checkPromise(res);
+  }
 
-//Зафиксировать на сервере снятие лайка
-export function disactivateLike(cardId) {
-  return fetchServerData(`cards/likes/${cardId}`, 'DELETE');
-}
+  async disactivateLike(cardId) {
+    const res = await fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+      method: 'DELETE',
+      headers: this._headers
+    });
+    return this.checkPromise(res);
+  }
 
-//Запрос на удаление карточки с сервера
-export function deleteCard(id) {
-  return fetchServerData(`cards/${id}`, 'DELETE');
-}
+  async deleteCard(cardId) {
+    const res = await fetch(`${this._baseUrl}/cards/${cardId}`, {
+      method: 'DELETE',
+      headers: this._headers
+    });
+    return this.checkPromise(res);
+  }
 
-//Запрос на изменение аватара
-export function changeAvatar(link) {
-  return fetchServerData('users/me/avatar', 'PATCH', {avatar: link});
+  async changeAvatar(link) {
+    const res = await fetch(`${this._baseUrl}/users/me/avatar`, {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify({ avatar: link.avatarUrl })
+    });
+    return this.checkPromise(res);
+  }
+
+  getData() {
+    return Promise.all([this.getUserData(), this.getInitialCards()])
+  }
 }

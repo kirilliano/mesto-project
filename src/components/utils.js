@@ -14,6 +14,10 @@ const cardsContainer = '.elements';
 const popups = document.querySelectorAll('.popup__form')
 const popupAddCardSelector = '#popupAddPhoto'
 
+const formEditProfile = document.querySelector('.form-edit-profile')
+const formAddCard = document.querySelector('.form-add-photo')
+const formEditAva = document.querySelector('.form-change-ava')
+
 const setFormValid = {
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__button',
@@ -32,6 +36,6 @@ const config = {
 
 export {
   profileEditButton, buttonAdd ,nameInput, jobInput, profileName, profileInfo, popupEditProfile,
-  config, profileAvatar, setFormValid, templateSelector, avaEditButton,    
-  cardsContainer, popups, popupAddCardSelector, popupEditAva
+  config, profileAvatar, setFormValid, templateSelector, avaEditButton,
+  cardsContainer, popups, popupAddCardSelector, popupEditAva, formEditProfile, formAddCard, formEditAva
 }

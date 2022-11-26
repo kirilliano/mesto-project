@@ -13,9 +13,9 @@ import UserInfo from './components/UserInfo';
 
 //DOM для редактирование профиля
 import {
-  profileEditButton, buttonAdd,nameInput, jobInput, profileName, profileInfo, popupEditProfile,
+  profileEditButton, buttonAdd, nameInput, jobInput, profileName, profileInfo, popupEditProfile,
   config, profileAvatar, templateSelector, avaEditButton,
-  cardsContainer, setFormValid, popups, popupAddCardSelector, popupEditAva
+  cardsContainer, setFormValid, popups, popupAddCardSelector, popupEditAva, formEditProfile, formAddCard, formEditAva
 } from '../src/components/utils.js'
 
 //получение данных
@@ -24,6 +24,18 @@ const api = new Api(config)
 const userInfo = new UserInfo(
   profileName, profileInfo, profileAvatar
 )
+
+////////валидация///////////////////////////
+
+const profileFormValidator = new FormValidator(setFormValid, formEditProfile)
+profileFormValidator.enableValidation()
+
+const cardFormValidator = new FormValidator(setFormValid, formAddCard)
+cardFormValidator.enableValidation()
+
+const avaFormValidator = new FormValidator(setFormValid, formEditAva)
+avaFormValidator.enableValidation()
+
 ///////////////////////Попапы////////////////
 //Редактирование профиля
 const renderProfileValues = () => {
@@ -45,6 +57,7 @@ const profilePopupCallback = data => {
     })
     .finally(() => {
       profilePopup.setButtonLoadingStatus(false);
+      profileFormValidator.toggleButtonState()
     });
 }
 
@@ -70,6 +83,7 @@ const avatarPopupCallback = data => {
     })
     .finally(() => {
       avatarPopup.setButtonLoadingStatus(false)
+      avaFormValidator.toggleButtonState()
     })
 }
 
@@ -92,6 +106,7 @@ const addCardCallback = data => {
     })
     .finally(() => {
       popupAddCard.setButtonLoadingStatus(false);
+      cardFormValidator.toggleButtonState()
     });
 };
 
@@ -157,13 +172,13 @@ api
 
 
 //валидация
-function validation (formElement) {
+/*function validation (formElement) {
   const formValidator = new FormValidator(setFormValid, formElement)
   formValidator.enableValidation()
 }
 
 popups.forEach((popup) => {validation(popup)})
-
+*/
 
 //слушатели для попапов
 profileEditButton.addEventListener('click', () => {

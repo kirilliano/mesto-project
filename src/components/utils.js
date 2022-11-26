@@ -32,6 +32,6 @@ const config = {
 
 export {
   profileEditButton, buttonAdd ,nameInput, jobInput, profileName, profileInfo, popupEditProfile,
-  config, profileAvatar, setFormValid, templateSelector, avaEditButton,
+  config, profileAvatar, setFormValid, templateSelector, avaEditButton,    
   cardsContainer, popups, popupAddCardSelector, popupEditAva
 }
